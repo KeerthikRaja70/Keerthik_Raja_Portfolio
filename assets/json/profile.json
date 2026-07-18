@@ -4,220 +4,195 @@
     "role": "Data Analyst",
     "email": "keerthikbharath29@gmail.com",
     "phone": "86103 73797",
-    "linkedin": "https://www.linkedin.com/in/keerthik-raja70",
+    "linkedin": "https://linkedin.com/in/keerthik-raja70",
+    "github": "https://github.com/KeerthikRaja70",
     "location": "Erode, Tamil Nadu, India",
-    "summary": "Results-driven Data Analyst with an Industrial Engineering background and 10+ months of hands-on experience. Built shift-level forecast models enabling same-day production recovery decisions and designed Power BI dashboards that surfaced revenue-critical insights adopted as formal strategic priorities. Proficient in SQL, Python (Pandas, NumPy), Excel, and Power BI, with growing exposure to AI workflow automation and financial data analysis."
+    "summary": "Results-oriented Data Analyst with an Industrial Engineering background. Skilled in SQL, Power BI, Excel, and Python for transforming raw data into clear insights and recommendations."
   },
   "experience": [
     {
-      "role": "Data Analyst Intern",
-      "company": "Zatheta Algorhithms Private Limited",
-      "period": "May 2026 – Jun 2026",
-      "location": "Remote",
+      "role": "Industrial Engineer",
+      "company": "Jay Jay Mills",
+      "period": "2025 - 2026",
       "highlights": [
-        "Built a 6-page interactive Power BI dashboard to analyze securitisation portfolios, covering Credit Risk Analysis, Recovery Analysis, Collateral Analysis, and Vintage Performance Analysis.",
-        "Created interactive reports using Power BI, Power Query, DAX, and advanced visualizations to improve portfolio monitoring and performance evaluation.",
-        "Delivered meaningful insights through data modeling, KPI tracking, and user-friendly dashboard design."
+        "Process optimization",
+        "Data-driven decision making",
+        "Production analysis",
+        "Operational improvement"
+      ]
+    },
+    {
+      "role": "Data Analyst Intern",
+      "company": "Zetheta Algorithms Pvt Ltd",
+      "period": "2026",
+      "highlights": [
+        "Data cleaning",
+        "Exploratory data analysis",
+        "Power BI dashboard development",
+        "Business insights generation"
       ]
     },
     {
       "role": "Data Analyst Intern",
       "company": "Internship Studio",
-      "period": "May 2026 – Jun 2026",
-      "location": "Remote",
+      "period": "2026",
       "highlights": [
-        "Developed a 2-page interactive Power BI dashboard for Retail Sales Data Analysis, providing actionable insights into Customer Response, Revenue Performance, Sales Trends, and Customer Activity.",
-        "Created interactive reports using Power BI, DAX, and Power Query, incorporating KPIs, slicers, and dynamic visualizations to monitor sales performance and customer behavior.",
-        "Transformed retail sales data into meaningful business insights, enabling data-driven decision-making and performance tracking."
+        "Data analysis projects",
+        "Dashboard creation",
+        "Reporting",
+        "Data visualization"
       ]
     },
     {
-      "role": "Industrial Engineer",
-      "company": "Jay Jay Mills",
-      "period": "Apr 2025 – Feb 2026",
-      "location": "Erode, Tamil Nadu",
-      "highlights": [
-        "Built shift-level production forecast models in Excel enabling same-day corrective planning; consistently closed an average production shortfall of 12% by the following shift through real-time data-driven adjustments.",
-        "Automated operator assignment audits using VLOOKUP and XLOOKUP across 5+ production lines, eliminating error-prone manual cross-checks and significantly reducing daily assignment mismatches.",
-        "Delivered end-of-shift variance analysis reports quantifying root causes of production losses; recommendations adopted by the operations team within the same week, driving gains across 3 bottlenecks."
-      ]
-    },
-    {
-      "role": "Electronics Technician",
+      "role": "Electrician",
       "company": "Nile Controllers",
-      "period": "2024 – 2025",
-      "location": "Erode, Tamil Nadu",
+      "period": "2024",
       "highlights": [
-        "Handled PCB assembly, soldering, and quality testing to support hardware reliability and efficient production operations.",
-        "Developed practical experience in troubleshooting, process accuracy, and maintaining quality standards within a fast-paced manufacturing environment."
+        "Technical troubleshooting",
+        "Equipment maintenance",
+        "Problem solving"
       ]
     }
   ],
   "projects": [
     {
-      "title": "Securitisation Portfolio Data Analysis",
-      "client": "Zatheta Internship",
-      "technologies": ["SQL", "Excel", "Power BI", "DAX", "Power Query"],
-      "details": {
-        "objective": "Credit Risk & Recovery Analytics",
-        "duration": "1 Month",
-        "dataSource": "Securitisation Portfolio Dataset (6,000+ Records)",
-        "role": "Data Analyst Intern",
-        "completed": "June 2026",
-        "description": "Due to confidentiality agreements, dashboard visuals cannot be publicly shared. The analysis covers structured asset-backed securities portfolio health, credit risk metrics, recovery analysis, and vintage performance analysis to evaluate portfolio performance.",
-        "achievements": [
-          "Data Processing & Quality: Managed and sanitized a 6,000+ record securitisation dataset using advanced SQL - handling missing values, resolving structural inconsistencies, and normalizing schemas to produce a clean analytics-ready data model.",
-          "EDA & Insights: Performed comprehensive EDA in Excel to identify portfolio trends, segment asset performance by vintage and collateral type, and establish baseline KPIs for stakeholder dashboards.",
-          "Visualization & Analysis: Designed a 6-page interactive Power BI dashboard integrating Credit Risk Analysis, Recovery Analysis, Collateral Analysis, and Vintage Performance Analysis."
-        ]
-      },
-      "isConfidential": true
+      "title": "Securitisation Portfolio Analysis Dashboard",
+      "category": "Banking Analytics",
+      "image": "assets/images/securitisation-dashboard.png",
+      "tools": "Power BI | DAX | Excel",
+      "isConfidential": true,
+      "githubUrl": "https://github.com/KeerthikRaja70/securitisation-portfolio-analysis",
+      "problem": "Built an interactive banking analytics dashboard to analyze loan portfolio performance, risk segmentation, and financial metrics.",
+      "questions": [
+        "What problem was analyzed? Loan portfolio health, default rates, and risk concentration across geographical sectors under bank underwriting schemas.",
+        "What business questions were answered?",
+        "1. How is the loan portfolio performing over time?",
+        "2. How is credit risk distributed?",
+        "3. What is the collection efficiency?"
+      ],
+      "findings": [
+        "Delinquency hotspots were isolated to 3 specific geographical divisions.",
+        "Vintage curves revealed default spikes peaking in the 4th month post-issuance.",
+        "Collection efficiency was significantly higher (12%) in accounts managed under structured calling schedules."
+      ],
+      "recommendations": [
+        "Tighten credit underwriting standards for high-risk regions.",
+        "Align collection agent resource schedules with vintage peak periods to proactively reduce defaults.",
+        "Recalibrate capital reserves dynamically utilizing vintage loss curves."
+      ]
     },
     {
-      "title": "Retail Sales Data Analysis",
-      "client": "I Studio Internship",
-      "technologies": ["SQL", "Excel", "Power BI", "DAX", "Power Query"],
-      "details": {
-        "objective": "Customer & Sales Performance Reporting",
-        "duration": "1 Month",
-        "dataSource": "Retail Transactions & Response Data",
-        "role": "Data Analyst Intern",
-        "completed": "June 2026",
-        "description": "Developed a 2-page interactive Power BI dashboard for Retail Sales Data Analysis. Due to limited data availability constraints, analysis was focused on baseline operational performance, customer activity, and MoM transaction trends.",
-        "achievements": [
-          "Data Constraint Management: Structured and cleaned a restricted retail dataset, addressing limited data availability to establish baseline operational metrics.",
-          "Operational Metric Tracking: Visualized key KPIs including 125K total customers, 14K responses, 8M total revenue, and 64.99 average transaction value.",
-          "Customer Segmentation: Discovered that Medium spending customer band generated 61.8% ($5M) of total revenue, guiding targeted retention strategies."
-        ]
-      },
-      "images": [
-        "assets/images/projects/retail/project_1_1.png",
-        "assets/images/projects/retail/project_1_2.png"
+      "title": "E-Commerce Sales Analysis Dashboard",
+      "category": "Retail Analytics",
+      "image": "assets/images/projects/ecommerce/dashboard_1.png",
+      "tools": "SQL | Power BI | Excel | DAX | Python",
+      "isConfidential": false,
+      "githubUrl": "https://github.com/KeerthikRaja70/ecommerce-sales-analysis",
+      "problem": "Analyze e-commerce sales performance, customer trends, product performance, and revenue patterns to generate actionable business insights.",
+      "questions": [
+        "What problem was analyzed? Wrangling product review distributions, price bands, and brand revenues to maximize digital conversions.",
+        "What business questions were answered?",
+        "1. What is the revenue contribution of each brand?",
+        "2. How do discount percentages correlate with product ratings?",
+        "3. Which keywords appear most in product reviews?",
+        "4. What is the price distribution across product categories?"
       ],
-      "isConfidential": false
+      "findings": [
+        "Levis and U.S. Polo Assn. emerged as top revenue-generating brands.",
+        "Discovered that rating distribution centers heavily on the 4-5 stars range.",
+        "Fit issues were the most common keyword in low-satisfaction product reviews."
+      ],
+      "recommendations": [
+        "Expand product lines for the top 5 premium brands.",
+        "Implement size guides and interactive fit tools to address product review concerns.",
+        "Adjust pricing margins for products with high discount elasticity."
+      ]
     },
     {
-      "title": "End-to-End E-Commerce Sales Analysis Dashboard",
-      "client": "Independent Project",
-      "technologies": ["Excel", "SQL", "Power BI", "DAX", "Power Query"],
-      "details": {
-        "objective": "E-Commerce Profitability & Review Optimization",
-        "duration": "2 Weeks",
-        "dataSource": "E-Commerce Sales Dataset (1,000 Rows)",
-        "role": "Data Analyst",
-        "completed": "2024",
-        "description": "A comprehensive end-to-end sales analysis dashboard that tracks revenue trends, discount implications, product reviews, and category-level profit margins to optimize supply chains and inventory.",
-        "achievements": [
-          "Data Cleaning & Feature Engineering: Cleaned and standardized a 1,000-row raw sales dataset; engineered features using SQL CTEs, multi-table joins, and aggregations to build a unified query-optimized data model.",
-          "Advanced DAX Measures: Developed 6 custom DAX measures covering revenue growth rate, discount impact, product review scores, and category-level profitability; implemented dynamic slicers and drill-through filters.",
-          "Business Insights: Discovered that the Dresses category generated disproportionately higher revenue relative to its SKU count - insight adopted as a formal strategic priority, driving increased inventory allocation."
-        ]
-      },
-      "images": [
-        "assets/images/projects/ecommerce/dashboard_1.png",
-        "assets/images/projects/ecommerce/dashboard_2.png",
-        "assets/images/projects/ecommerce/dashboard_3.png",
-        "assets/images/projects/ecommerce/dashboard_4.png",
-        "assets/images/projects/ecommerce/dashboard_5.png"
+      "title": "Retail Sales Analysis Dashboard",
+      "category": "Retail Analytics",
+      "image": "assets/images/projects/retail/project_1_1.png",
+      "tools": "SQL | Power BI | Excel | DAX",
+      "isConfidential": false,
+      "githubUrl": "https://github.com/KeerthikRaja70/retail-sales-analysis",
+      "problem": "Analyze retail sales performance, customer behavior, product trends, and revenue patterns to generate actionable business insights.",
+      "questions": [
+        "What problem was analyzed? Optimizing store revenues and customer response metrics across product lines amid limited data constraints.",
+        "What business questions were answered?",
+        "1. Which products generate the highest revenue?",
+        "2. Which categories have the best performance?",
+        "3. What are the monthly sales trends?",
+        "4. Which customers contribute the most revenue?",
+        "5. Where are the opportunities for improvement?"
       ],
-      "isConfidential": false
+      "findings": [
+        "Identified top-performing product categories.",
+        "Found seasonal sales patterns and significant monthly drops.",
+        "Analyzed customer purchasing behaviour and campaign response rate.",
+        "Identified low-performing product segments."
+      ],
+      "recommendations": [
+        "Focus marketing campaigns on high-performing categories.",
+        "Optimize inventory planning based on monthly sales patterns.",
+        "Improve customer retention strategies targeting high-value buyers.",
+        "Create targeted promotions to revive low-performing segments."
+      ]
     }
+  ],
+  "aiAchievements": [
+    "Built AI-powered automation workflows using n8n",
+    "Developed RAG-based Customer Support AI Agent",
+    "Integrated AI APIs into practical applications",
+    "Built AI-assisted productivity solutions",
+    "Explored Generative AI tools for automation and problem solving"
   ],
   "skills": {
-    "Analytics & BI": [
-      { "name": "Power BI", "level": "Expert", "score": 95, "desc": "Interactive reporting, dashboard layout design, cross-filtering, and automated dataset refreshing." },
-      { "name": "DAX", "level": "Advanced", "score": 90, "desc": "Custom measures, calculated columns, time intelligence functions, and filter context manipulation." },
-      { "name": "Excel Pivot Tables", "level": "Expert", "score": 95, "desc": "Aggregating raw transaction logs, VLOOKUP/XLOOKUP audits, and building quick forecasting templates." },
-      { "name": "Power Query", "level": "Advanced", "score": 90, "desc": "ETL workflows, merging tables, data type casting, and query-level performance optimization." }
-    ],
-    "Database & Cleaning": [
-      { "name": "SQL", "level": "Advanced", "score": 92, "desc": "Writing clean, optimized DQL queries for filtering, sorting, and aggregations." },
-      { "name": "CTEs & Joins", "level": "Expert", "score": 95, "desc": "Designing multi-table joins and recursive Common Table Expressions to structure complex datasets." },
-      { "name": "Subqueries", "level": "Advanced", "score": 88, "desc": "Creating nested queries for advanced conditional logic and multi-tier filtering." },
-      { "name": "EDA (Exploratory Data Analysis)", "level": "Expert", "score": 92, "desc": "Inspecting distribution metrics, identifying outliers, and generating descriptive statistics." }
-    ],
-    "Programming": [
-      { "name": "Python", "level": "Intermediate", "score": 80, "desc": "Scripting, debugging, data wrangling, and basic automation." },
-      { "name": "Pandas", "level": "Advanced", "score": 82, "desc": "DataFrame manipulation, grouping, cleaning nulls, and statistical mapping." },
-      { "name": "NumPy", "level": "Intermediate", "score": 75, "desc": "Numerical calculations, matrix operations, and array-based computations." },
-      { "name": "Statistical Analysis", "level": "Intermediate", "score": 78, "desc": "Mean-variance diagnostics, correlation checks, and baseline distributions." }
-    ],
-    "Domain & Methods": [
-      { "name": "Variance Analysis", "level": "Expert", "score": 94, "desc": "Calculating target vs. actual deviations, identifying root causes, and creating corrective alerts." },
-      { "name": "Forecast Modeling", "level": "Advanced", "score": 90, "desc": "Building Excel and Python forecasting algorithms to anticipate capacity, demand, or bottlenecks." },
-      { "name": "KPI Design", "level": "Expert", "score": 95, "desc": "Defining and tracking business performance metrics aligned with organizational targets." },
-      { "name": "Financial Data Analysis", "level": "Intermediate", "score": 85, "desc": "Securitisation tracking, recovery rate computation, and ABS credit risk modeling." }
-    ]
+    "SQL": 90,
+    "Power BI": 90,
+    "Excel": 85,
+    "Python": 75,
+    "Pandas": 70,
+    "DAX": 85
   },
-  "education": [
-    {
-      "degree": "B.E. Mechanical Engineering",
-      "school": "Government College of Engineering, Salem",
-      "period": "2018 – 2022",
-      "score": "CGPA: 7.68",
-      "details": "Completed Bachelor of Engineering with focus on industrial systems, operations research, and structural problem-solving."
-    },
-    {
-      "degree": "Higher Secondary School Certificate (12th)",
-      "school": "M.A.M. Hr. Sec. School",
-      "period": "2017 – 2018",
-      "score": "Percentage: 88%",
-      "details": "Focused on Biology-Mathematics curriculum."
-    },
-    {
-      "degree": "Secondary School Leaving Certificate (10th)",
-      "school": "M.A.M. Hr. Sec. School",
-      "period": "2015 – 2016",
-      "score": "Percentage: 96.2%",
-      "details": "Outstanding performance in science and mathematics."
-    }
-  ],
+  "techStack": {
+    "Database": "PostgreSQL",
+    "Visualization": "Power BI",
+    "Programming": "Python",
+    "Data Processing": "Pandas, NumPy",
+    "Automation": "n8n, APIs"
+  },
   "certifications": [
     {
-      "title": "Python for Everybody",
-      "issuer": "University of Michigan",
-      "platform": "Coursera",
-      "id": "74INF9E841LI",
-      "issued": "Jan 2026",
-      "image": "assets/images/certificates/Programming For Everybody.jpg",
-      "verifyUrl": "https://coursera.org/verify/74INF9E841LI"
+      "title": "Data Analytics Internship Certificate",
+      "issuer": "Tanusha Majumdar (Internship Mentor), Internship Studio",
+      "platform": "Internship Studio",
+      "completionDetails": "Completed: May 6th, 2026 to June 10th, 2026 (Certificate ID: ISDTAI3280639)",
+      "image": "assets/images/certificates/internship_studio_data_analytics.png",
+      "skillsGained": "SQL | Power BI | Excel | Data Analytics | Relational Modeling"
     },
     {
       "title": "Python Data Structures",
-      "issuer": "University of Michigan",
+      "issuer": "Charles Severance (Clinical Professor, School of Information), University of Michigan",
       "platform": "Coursera",
-      "id": "HD7TKJQ2ZH1Z",
-      "issued": "Feb 2026",
-      "image": "assets/images/certificates/Python Data Structures.jpg",
-      "verifyUrl": "https://coursera.org/verify/HD7TKJQ2ZH1Z"
+      "completionDetails": "Completed: Feb 10, 2026 (Verify Code: HD7TKJQ2ZH1Z)",
+      "image": "assets/images/certificates/Python Data Structures.png",
+      "skillsGained": "Lists, Dictionaries, Tuples | XML/JSON parsing | File handling & cleaning"
     },
     {
-      "title": "Data Analytics Internship Certificate",
+      "title": "Python using AI Workshop Certificate",
+      "issuer": "Aditya Kachave (AI For Techies)",
+      "platform": "AI For Techies",
+      "completionDetails": "Completed: May 10th, 2026",
+      "image": "assets/images/certificates/python_using_ai_workshop.png",
+      "skillsGained": "Interactive Python visualizations | AI-assisted code debugging & generation"
+    },
+    {
+      "title": "Power BI Data Analytics Certificate",
       "issuer": "Internship Studio",
-      "platform": "Internship Studio",
-      "id": "ISDTAI3280639",
-      "issued": "Jun 2026",
-      "image": "assets/images/certificates/Programming For Everybody 1.jpg",
-      "verifyUrl": "#"
-    },
-    {
-      "title": "Python Using AI Workshop",
-      "issuer": "AI For Techies",
-      "platform": "AI For Techies Workshop",
-      "id": "N/A",
-      "issued": "May 2026",
-      "image": "assets/images/certificates/Python Using AI Workshop.jpg",
-      "verifyUrl": "#"
-    }
-  ],
-  "achievements": [
-    {
-      "title": "Workflow Automation Using AI",
-      "desc": "Built scripts and integrations utilizing AI to automate repetitive administrative and data prep actions."
-    },
-    {
-      "title": "AI Agents & Autonomous Systems",
-      "desc": "Studied and configured basic agentic workflows to retrieve, parse, and process unstructured local datasets autonomously."
+      "platform": "Zatheta Algorithms & Internship Studio",
+      "completionDetails": "Completed: 2026",
+      "image": "assets/images/powerbi-cert.png",
+      "skillsGained": "DAX calculations | Relational modeling | Dashboard layouts"
     }
   ]
 }
