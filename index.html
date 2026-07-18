@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keerthik Raja | Data Analyst Portfolio Dashboard</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Keerthik Raja Data Analyst portfolio dashboard showcasing Power BI dashboards, SQL projects, Python analytics, and business insights.">
+    <meta name="keywords" content="Data Analyst, Power BI, SQL, Python, Excel, Business Intelligence, Dashboard Portfolio">
+    <meta name="author" content="Keerthik Raja">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons (Boxicons and FontAwesome) -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Mouse spotlight glow effect -->
+    <div id="cursor-glow" aria-hidden="true"></div>
+
+    <!-- 1. LOADING SCREEN -->
+    <div id="preloader" role="dialog" aria-modal="true" aria-label="Dashboard Loading">
+        <div class="loader-container">
+            <div class="loader-logo">
+                KR | <span>DATA ANALYTICS</span>
+            </div>
+            <div class="loader-console" id="loader-console" aria-live="polite">
+                <div class="loader-console-line">&gt; Spawning telemetry node...</div>
+            </div>
+            <div class="loader-progress-bar-bg">
+                <div class="loader-progress-bar" id="loader-progress-bar"></div>
+            </div>
+            <div class="loader-text" id="loader-text">Loading Dashboard: 0%</div>
+        </div>
+    </div>
+
+    <!-- 2. TOP STICKY NAVIGATION BAR -->
+    <header class="dashboard-header">
+        <div class="navbar">
+            <a href="#home" class="nav-brand" aria-label="Data Analytics Home">
+                <span class="nav-brand-dot"></span>
+                <span class="nav-brand-text">KR | <span>DATA ANALYTICS</span></span>
+            </a>
+            
+            <nav aria-label="Main Navigation">
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link active">Overview</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#achievements" class="nav-link">AI Achievements</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                    <li><a href="#resume" class="nav-link">Resume</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="https://linkedin.com/in/keerthik-raja70" target="_blank" class="nav-icon-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/KeerthikRaja70" target="_blank" class="nav-icon-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle visual theme" title="Toggle Theme">
+                    <i class="bx bx-moon" id="theme-icon"></i>
+                </button>
+                <a href="assets/resume/Keerthik_Raja_Resume.pdf" class="btn btn-secondary btn-header-resume" download aria-label="Download Resume PDF">
+                    <i class="bx bx-download"></i> Resume
+                </a>
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <i class="bx bx-menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="dashboard-main-container">
+        
+        <!-- 3. HERO OVERVIEW / SYSTEM STATUS -->
+        <section id="home" class="hero-dashboard-wrapper" aria-label="Dashboard Overview">
+            <div class="hero-left">
+                <div class="profile-image-container">
+                    <img src="assets/images/profile.jpg" alt="Keerthik Raja - Data Analyst" class="profile-img">
+                </div>
+                <h1 class="hero-name">Keerthik Raja</h1>
+                <h2 class="hero-role-title">Data Analyst | Power BI Developer | SQL Analyst</h2>
+                <p class="hero-summary-text">
+                    Industrial Engineer transitioning into Data Analytics, specializing in SQL, Power BI, Excel, and Python to transform raw data into actionable business insights.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Dashboards</a>
+                    <a href="assets/resume/Keerthik_Raja_Resume.pdf" class="btn btn-secondary" download>Download Resume</a>
+                </div>
+            </div>
+            
+            <!-- Right Side: KPI Grid -->
+            <div class="hero-right-kpi">
+                <div class="kpi-card-dashboard blue" data-counter="5">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Projects Completed</span>
+                        <span class="kpi-status-badge"><i class="bx bx-trending-up"></i> 100% Target</span>
+                    </div>
+                    <div class="kpi-value"><span class="counter-num" data-target="5">0</span>+</div>
+                    <div class="kpi-footer">Standard SQL & Python repos</div>
+                </div>
+                
+                <div class="kpi-card-dashboard gold" data-counter="10">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Dashboards Built</span>
+                        <span class="kpi-status-badge"><i class="bx bx-check-double"></i> Active</span>
+                    </div>
+                    <div class="kpi-value"><span class="counter-num" data-target="10">0</span>+</div>
+                    <div class="kpi-footer">Power BI / Excel Models</div>
+                </div>
+
+                <div class="kpi-card-dashboard green">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Core Tools Stack</span>
+                        <span class="kpi-status-badge"><i class="bx bx-bolt-circle"></i> Telemetry</span>
+                    </div>
+                    <div class="kpi-value-text">SQL | PBI | Python</div>
+                    <div class="kpi-footer">Pandas, NumPy, DAX</div>
+                </div>
+
+                <div class="kpi-card-dashboard blue">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Analytics Experience</span>
+                        <span class="kpi-status-badge"><i class="bx bx-shield-quarter"></i> Verified</span>
+                    </div>
+                    <div class="kpi-value-text" style="font-size: 1.15rem; line-height:1.4; padding-top:4px;">Hands-on Projects</div>
+                    <div class="kpi-footer">10+ Months IE Capacity Optimization</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ANALYTICS SUMMARY SECTION (Skills & Technology stack) -->
+        <section id="skills" class="skills-summary-section" aria-labelledby="skills-heading">
+            <span class="section-subtitle">Performance Diagnostics</span>
+            <h2 class="section-title" id="skills-heading">Analytics Summary</h2>
+            
+            <div class="skills-dashboard-grid">
+                <!-- Skill Analytics Column -->
+                <div class="skills-analytics-panel">
+                    <h3 class="panel-subtitle"><i class="bx bx-bar-chart-alt-2"></i> Skill Metrics</h3>
+                    <div class="skills-list">
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span>SQL</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-track"><span style="width: 90%;" class="bg-blue"></span></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span>Power BI</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-track"><span style="width: 90%;" class="bg-gold"></span></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span>Excel</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-track"><span style="width: 85%;" class="bg-green"></span></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span>Python</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-track"><span style="width: 75%;" class="bg-blue"></span></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span>Pandas</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="progress-track"><span style="width: 70%;" class="bg-green"></span></div>
+                        </div>
+                        <div class="skill-bar-item">
+                            <div class="skill-info">
+                                <span>DAX</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-track"><span style="width: 85%;" class="bg-gold"></span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tech Stack Cards Column -->
+                <div class="tech-stack-panel">
+                    <h3 class="panel-subtitle"><i class="bx bx-layer"></i> Tech Stack Nodes</h3>
+                    <div class="tech-stack-cards-grid">
+                        <div class="tech-card border-gold">
+                            <i class="bx bx-data"></i>
+                            <h4>Database</h4>
+                            <p>PostgreSQL</p>
+                        </div>
+                        <div class="tech-card border-blue">
+                            <i class="bx bx-show"></i>
+                            <h4>Visualization</h4>
+                            <p>Power BI</p>
+                        </div>
+                        <div class="tech-card border-gold">
+                            <i class="bx bx-code-alt"></i>
+                            <h4>Programming</h4>
+                            <p>Python</p>
+                        </div>
+                        <div class="tech-card border-green">
+                            <i class="bx bx-calculator"></i>
+                            <h4>Data Processing</h4>
+                            <p>Pandas, NumPy</p>
+                        </div>
+                        <div class="tech-card border-blue">
+                            <i class="bx bx-bot"></i>
+                            <h4>Automation</h4>
+                            <p>n8n, APIs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. EXPERIENCE TIMELINE -->
+        <section id="experience" aria-labelledby="experience-heading">
+            <span class="section-subtitle">Career Nodes</span>
+            <h2 class="section-title" id="experience-heading">Experience Timeline</h2>
+            
+            <div class="timeline-dashboard" id="experience-timeline">
+                <!-- Dynamically rendered career timeline nodes from script.js -->
+            </div>
+        </section>
+
+        <!-- 6. ACHIEVEMENTS SECTION -->
+        <section id="achievements" aria-labelledby="achievements-heading">
+            <span class="section-subtitle">AI & Automation Metrics</span>
+            <h2 class="section-title" id="achievements-heading">AI Achievements</h2>
+            
+            <div class="ai-achievements-container" id="ai-achievements-container">
+                <!-- Dynamically populated AI achievements cards from script.js -->
+            </div>
+        </section>
+
+        <!-- 7. PROJECTS SECTION -->
+        <section id="projects" aria-labelledby="projects-heading">
+            <span class="section-subtitle">Report Outputs</span>
+            <h2 class="section-title" id="projects-heading">Project Dashboards</h2>
+            
+            <div class="projects-dashboard-grid" id="projects-container">
+                <!-- Dynamically rendered compact project cards (3 per row) injected by JS -->
+            </div>
+        </section>
+
+        <!-- 8. CERTIFICATIONS SECTION -->
+        <section id="certifications" aria-labelledby="certifications-heading">
+            <span class="section-subtitle">Verified Badges</span>
+            <h2 class="section-title" id="certifications-heading">Certifications</h2>
+            
+            <div class="certifications-grid-dashboard" id="certifications-container">
+                <!-- Dynamically rendered credential cards from script.js -->
+            </div>
+        </section>
+
+        <!-- 9. RESUME SECTION -->
+        <section id="resume" aria-labelledby="resume-heading">
+            <span class="section-subtitle">Credentials File</span>
+            <h2 class="section-title" id="resume-heading">Resume Hub</h2>
+            
+            <div class="resume-preview-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 1rem; flex-wrap: wrap;">
+                    <div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 4px;">Keerthik_Raja_Resume.pdf</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Verified PDF Document</p>
+                    </div>
+                    <a href="assets/resume/Keerthik_Raja_Resume.pdf" class="btn btn-primary" download aria-label="Download Resume PDF">
+                        <i class="bx bx-download"></i> Download Full Resume
+                    </a>
+                </div>
+                
+                <div class="resume-iframe-wrapper">
+                    <iframe src="assets/resume/Keerthik_Raja_Resume.pdf#toolbar=0" class="resume-iframe" title="Keerthik Raja - Professional Data Analyst Resume PDF"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. CONTACT SECTION -->
+        <section id="contact" aria-labelledby="contact-heading">
+            <span class="section-subtitle">Submit Communications</span>
+            <h2 class="section-title" id="contact-heading">Recruiter Contact Dashboard</h2>
+            
+            <div class="contact-dashboard-wrapper">
+                <div class="contact-kpi-grid">
+                    <!-- Email Card -->
+                    <div class="contact-kpi-card" id="copy-email-card">
+                        <i class="bx bx-envelope bg-blue"></i>
+                        <div class="kpi-details">
+                            <h5>Email Address</h5>
+                            <p id="email-text">keerthikbharath29@gmail.com</p>
+                        </div>
+                        <button class="kpi-copy-action" aria-label="Copy Email"><i class="bx bx-copy"></i></button>
+                    </div>
+                    
+                    <!-- Call Card -->
+                    <div class="contact-kpi-card" id="copy-phone-card">
+                        <i class="bx bx-phone bg-green"></i>
+                        <div class="kpi-details">
+                            <h5>Mobile Contact</h5>
+                            <p id="phone-text">+91 86103 73797</p>
+                        </div>
+                        <button class="kpi-copy-action" aria-label="Copy Phone"><i class="bx bx-copy"></i></button>
+                    </div>
+                    
+                    <!-- LinkedIn Link -->
+                    <a href="https://linkedin.com/in/keerthik-raja70" target="_blank" class="contact-kpi-card link-card">
+                        <i class="fab fa-linkedin bg-blue"></i>
+                        <div class="kpi-details">
+                            <h5>LinkedIn Profile</h5>
+                            <p>linkedin.com/in/keerthik-raja70</p>
+                        </div>
+                        <i class="bx bx-link-external link-arrow"></i>
+                    </a>
+                    
+                    <!-- GitHub Link -->
+                    <a href="https://github.com/KeerthikRaja70" target="_blank" class="contact-kpi-card link-card">
+                        <i class="fab fa-github bg-gold"></i>
+                        <div class="kpi-details">
+                            <h5>GitHub Codebase</h5>
+                            <p>github.com/KeerthikRaja70</p>
+                        </div>
+                        <i class="bx bx-link-external link-arrow"></i>
+                    </a>
+                </div>
+                
+                <!-- Ticket Submission Form -->
+                <div class="contact-ticket-panel">
+                    <h3 class="panel-subtitle"><i class="bx bx-paper-plane"></i> Submit Ticket</h3>
+                    <form id="contact-ticket-form" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="cbc79786-5b05-4199-a033-0ebb1f5b71f2">
+                        <input type="hidden" name="subject" value="New Portfolio Contact Ticket from Keerthik Data Analyst">
+                        
+                        <div class="contact-form-grid">
+                            <div>
+                                <label for="form-name" class="form-label">Full Name</label>
+                                <input type="text" id="form-name" name="name" class="form-input" placeholder="e.g. Hiring Manager" required>
+                            </div>
+                            <div>
+                                <label for="form-email" class="form-label">Return Email</label>
+                                <input type="email" id="form-email" name="email" class="form-input" placeholder="e.g. manager@firm.com" required>
+                            </div>
+                            <div class="form-group-full">
+                                <label for="form-msg" class="form-label">Detailed Message</label>
+                                <textarea id="form-msg" name="message" class="form-input" placeholder="Wrangle your thoughts here..." required></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                            Submit Support Ticket
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 11. CERTIFICATE LIGHTBOX MODAL -->
+    <div class="cert-lightbox-overlay" id="cert-lightbox" role="dialog" aria-modal="true" aria-labelledby="cert-lightbox-title">
+        <div class="cert-lightbox-container">
+            <button class="cert-lightbox-close" id="cert-lightbox-close" aria-label="Close Lightbox">
+                <i class="bx bx-x"></i>
+            </button>
+            <div class="cert-lightbox-grid">
+                <div class="cert-lightbox-img-wrap">
+                    <img src="" alt="Credential Visual" id="cert-lightbox-img">
+                </div>
+                <div class="cert-lightbox-info">
+                    <span class="badge-status">Verified Credential</span>
+                    <h3 class="cert-lightbox-title" id="cert-lightbox-title">Power BI Data Analytics</h3>
+                    <p class="cert-lightbox-issuer" id="cert-lightbox-issuer">Internship Studio</p>
+                    
+                    <ul class="cert-lightbox-detail-list">
+                        <li><span>Platform/Provider:</span><strong id="cert-val-platform">Zatheta Algorithms &amp; Internship Studio</strong></li>
+                        <li><span>Details:</span><strong id="cert-val-details">Completed: 2026</strong></li>
+                        <li><span>Skills Gained:</span><strong id="cert-val-skills">DAX, relational modeling, dashboard KPI layouts</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. BUSINESS SOLUTION LIGHTBOX MODAL -->
+    <div class="solution-lightbox-overlay" id="solution-lightbox" role="dialog" aria-modal="true" aria-labelledby="solution-lightbox-title">
+        <div class="solution-lightbox-container">
+            <button class="solution-lightbox-close" id="solution-lightbox-close" aria-label="Close Modal">
+                <i class="bx bx-x"></i>
+            </button>
+            <div class="solution-modal-header">
+                <span class="badge-status" id="solution-modal-category">Retail Analytics</span>
+                <h3 class="solution-modal-title" id="solution-lightbox-title">E-Commerce Sales Analytics</h3>
+            </div>
+            <div class="solution-modal-content">
+                <!-- Section 1: Business Questions -->
+                <div class="solution-section">
+                    <h4><i class="bx bx-help-circle text-blue"></i> Business Questions</h4>
+                    <ul class="solution-list" id="solution-questions-list">
+                        <!-- Injected by JS -->
+                    </ul>
+                </div>
+                
+                <!-- Section 2: Data Findings -->
+                <div class="solution-section">
+                    <h4><i class="bx bx-search-alt text-gold"></i> Data Findings</h4>
+                    <ul class="solution-list" id="solution-findings-list">
+                        <!-- Injected by JS -->
+                    </ul>
+                </div>
+                
+                <!-- Section 3: Business Recommendations -->
+                <div class="solution-section">
+                    <h4><i class="bx bx-bulb text-green"></i> Business Recommendations</h4>
+                    <ul class="solution-list" id="solution-recommendations-list">
+                        <!-- Injected by JS -->
+                    </ul>
+                </div>
+                
+                <!-- Section 4: Visual Report Pages -->
+                <div class="solution-section" id="solution-visuals-section" style="display: none;">
+                    <h4><i class="bx bx-image text-blue"></i> Dashboard Report Pages</h4>
+                    <div class="solution-images-carousel" id="solution-images-carousel" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
+            <div class="solution-modal-footer">
+                <a href="#" target="_blank" class="btn btn-primary" id="solution-github-link"><i class="fab fa-github"></i> View GitHub Repository</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 13. FLOATING AI ASSISTANT WIDGET -->
+    <div id="ai-assistant-wrapper">
+        <button class="ai-assistant-trigger" id="ai-assistant-trigger" aria-label="Open AI Career Assistant" title="Open AI Assistant">
+            <i class="bx bx-bot"></i>
+        </button>
+        
+        <div class="ai-chat-panel" id="ai-chat-panel" role="dialog" aria-label="AI Career Representative Chat">
+            <div class="ai-chat-header">
+                <div class="ai-chat-agent-info">
+                    <div class="ai-chat-agent-avatar"><i class="bx bx-brain"></i></div>
+                    <div>
+                        <h4 class="ai-chat-agent-title">Keerthik's AI Agent</h4>
+                        <span class="ai-chat-agent-status">Online (Gemini Powered)</span>
+                    </div>
+                </div>
+                <button class="ai-chat-close-btn" id="ai-chat-close" aria-label="Collapse Assistant Chat">
+                    <i class="bx bx-chevron-down"></i>
+                </button>
+            </div>
+            
+            <div class="ai-chat-body" id="ai-chat-body">
+                <div class="chat-msg bot">
+                    Hi, I'm Keerthik's AI Assistant. How can I help you today?
+                </div>
+            </div>
+            
+            <div class="ai-chat-suggestions" id="ai-chat-suggestions">
+                <div class="suggestion-chip">What skills does Keerthik have?</div>
+                <div class="suggestion-chip">Tell me about his projects</div>
+                <div class="suggestion-chip">Is he available for Data Analyst roles?</div>
+                <div class="suggestion-chip">What is his engineering background?</div>
+            </div>
+            
+            <div class="ai-chat-footer">
+                <form id="ai-chat-form" class="chat-input-form">
+                    <input type="text" class="chat-input" id="ai-chat-input" placeholder="Ask about Keerthik's experience..." aria-label="AI message input" required>
+                    <button type="submit" class="chat-send-btn" aria-label="Send message">
+                        <i class="bx bx-send"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MINIMAL FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                KR | <span>DATA ANALYTICS</span>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Keerthik Raja. Built with HTML5, CSS3, &amp; Vanilla JavaScript. Powered by Google Gemini.
+            </div>
+            <ul class="footer-links">
+                <li><a href="#home">Overview</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>

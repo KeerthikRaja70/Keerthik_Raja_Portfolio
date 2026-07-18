@@ -1,0 +1,198 @@
+{
+  "personal": {
+    "name": "Keerthik Raja",
+    "role": "Data Analyst",
+    "email": "keerthikbharath29@gmail.com",
+    "phone": "86103 73797",
+    "linkedin": "https://linkedin.com/in/keerthik-raja70",
+    "github": "https://github.com/KeerthikRaja70",
+    "location": "Erode, Tamil Nadu, India",
+    "summary": "Results-oriented Data Analyst with an Industrial Engineering background. Skilled in SQL, Power BI, Excel, and Python for transforming raw data into clear insights and recommendations."
+  },
+  "experience": [
+    {
+      "role": "Industrial Engineer",
+      "company": "Jay Jay Mills",
+      "period": "2025 - 2026",
+      "highlights": [
+        "Process optimization",
+        "Data-driven decision making",
+        "Production analysis",
+        "Operational improvement"
+      ]
+    },
+    {
+      "role": "Data Analyst Intern",
+      "company": "Zetheta Algorithms Pvt Ltd",
+      "period": "2026",
+      "highlights": [
+        "Data cleaning",
+        "Exploratory data analysis",
+        "Power BI dashboard development",
+        "Business insights generation"
+      ]
+    },
+    {
+      "role": "Data Analyst Intern",
+      "company": "Internship Studio",
+      "period": "2026",
+      "highlights": [
+        "Data analysis projects",
+        "Dashboard creation",
+        "Reporting",
+        "Data visualization"
+      ]
+    },
+    {
+      "role": "Electrician",
+      "company": "Nile Controllers",
+      "period": "2024",
+      "highlights": [
+        "Technical troubleshooting",
+        "Equipment maintenance",
+        "Problem solving"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Securitisation Portfolio Analysis Dashboard",
+      "category": "Banking Analytics",
+      "image": "assets/images/securitisation-dashboard.png",
+      "tools": "Power BI | DAX | Excel",
+      "isConfidential": true,
+      "githubUrl": "https://github.com/KeerthikRaja70/securitisation-portfolio-analysis",
+      "problem": "Built an interactive banking analytics dashboard to analyze loan portfolio performance, risk segmentation, and financial metrics.",
+      "questions": [
+        "What problem was analyzed? Loan portfolio health, default rates, and risk concentration across geographical sectors under bank underwriting schemas.",
+        "What business questions were answered?",
+        "1. How is the loan portfolio performing over time?",
+        "2. How is credit risk distributed?",
+        "3. What is the collection efficiency?"
+      ],
+      "findings": [
+        "Delinquency hotspots were isolated to 3 specific geographical divisions.",
+        "Vintage curves revealed default spikes peaking in the 4th month post-issuance.",
+        "Collection efficiency was significantly higher (12%) in accounts managed under structured calling schedules."
+      ],
+      "recommendations": [
+        "Tighten credit underwriting standards for high-risk regions.",
+        "Align collection agent resource schedules with vintage peak periods to proactively reduce defaults.",
+        "Recalibrate capital reserves dynamically utilizing vintage loss curves."
+      ]
+    },
+    {
+      "title": "E-Commerce Sales Analysis Dashboard",
+      "category": "Retail Analytics",
+      "image": "assets/images/projects/ecommerce/dashboard_1.png",
+      "tools": "SQL | Power BI | Excel | DAX | Python",
+      "isConfidential": false,
+      "githubUrl": "https://github.com/KeerthikRaja70/ecommerce-sales-analysis",
+      "problem": "Analyze e-commerce sales performance, customer trends, product performance, and revenue patterns to generate actionable business insights.",
+      "questions": [
+        "What problem was analyzed? Wrangling product review distributions, price bands, and brand revenues to maximize digital conversions.",
+        "What business questions were answered?",
+        "1. What is the revenue contribution of each brand?",
+        "2. How do discount percentages correlate with product ratings?",
+        "3. Which keywords appear most in product reviews?",
+        "4. What is the price distribution across product categories?"
+      ],
+      "findings": [
+        "Levis and U.S. Polo Assn. emerged as top revenue-generating brands.",
+        "Discovered that rating distribution centers heavily on the 4-5 stars range.",
+        "Fit issues were the most common keyword in low-satisfaction product reviews."
+      ],
+      "recommendations": [
+        "Expand product lines for the top 5 premium brands.",
+        "Implement size guides and interactive fit tools to address product review concerns.",
+        "Adjust pricing margins for products with high discount elasticity."
+      ]
+    },
+    {
+      "title": "Retail Sales Analysis Dashboard",
+      "category": "Retail Analytics",
+      "image": "assets/images/projects/retail/project_1_1.png",
+      "tools": "SQL | Power BI | Excel | DAX",
+      "isConfidential": false,
+      "githubUrl": "https://github.com/KeerthikRaja70/retail-sales-analysis",
+      "problem": "Analyze retail sales performance, customer behavior, product trends, and revenue patterns to generate actionable business insights.",
+      "questions": [
+        "What problem was analyzed? Optimizing store revenues and customer response metrics across product lines amid limited data constraints.",
+        "What business questions were answered?",
+        "1. Which products generate the highest revenue?",
+        "2. Which categories have the best performance?",
+        "3. What are the monthly sales trends?",
+        "4. Which customers contribute the most revenue?",
+        "5. Where are the opportunities for improvement?"
+      ],
+      "findings": [
+        "Identified top-performing product categories.",
+        "Found seasonal sales patterns and significant monthly drops.",
+        "Analyzed customer purchasing behaviour and campaign response rate.",
+        "Identified low-performing product segments."
+      ],
+      "recommendations": [
+        "Focus marketing campaigns on high-performing categories.",
+        "Optimize inventory planning based on monthly sales patterns.",
+        "Improve customer retention strategies targeting high-value buyers.",
+        "Create targeted promotions to revive low-performing segments."
+      ]
+    }
+  ],
+  "aiAchievements": [
+    "Built AI-powered automation workflows using n8n",
+    "Developed RAG-based Customer Support AI Agent",
+    "Integrated AI APIs into practical applications",
+    "Built AI-assisted productivity solutions",
+    "Explored Generative AI tools for automation and problem solving"
+  ],
+  "skills": {
+    "SQL": 90,
+    "Power BI": 90,
+    "Excel": 85,
+    "Python": 75,
+    "Pandas": 70,
+    "DAX": 85
+  },
+  "techStack": {
+    "Database": "PostgreSQL",
+    "Visualization": "Power BI",
+    "Programming": "Python",
+    "Data Processing": "Pandas, NumPy",
+    "Automation": "n8n, APIs"
+  },
+  "certifications": [
+    {
+      "title": "Data Analytics Internship Certificate",
+      "issuer": "Tanusha Majumdar (Internship Mentor), Internship Studio",
+      "platform": "Internship Studio",
+      "completionDetails": "Completed: May 6th, 2026 to June 10th, 2026 (Certificate ID: ISDTAI3280639)",
+      "image": "assets/images/certificates/internship_studio_data_analytics.png",
+      "skillsGained": "SQL | Power BI | Excel | Data Analytics | Relational Modeling"
+    },
+    {
+      "title": "Python Data Structures",
+      "issuer": "Charles Severance (Clinical Professor, School of Information), University of Michigan",
+      "platform": "Coursera",
+      "completionDetails": "Completed: Feb 10, 2026 (Verify Code: HD7TKJQ2ZH1Z)",
+      "image": "assets/images/certificates/Python Data Structures.png",
+      "skillsGained": "Lists, Dictionaries, Tuples | XML/JSON parsing | File handling & cleaning"
+    },
+    {
+      "title": "Python using AI Workshop Certificate",
+      "issuer": "Aditya Kachave (AI For Techies)",
+      "platform": "AI For Techies",
+      "completionDetails": "Completed: May 10th, 2026",
+      "image": "assets/images/certificates/python_using_ai_workshop.png",
+      "skillsGained": "Interactive Python visualizations | AI-assisted code debugging & generation"
+    },
+    {
+      "title": "Power BI Data Analytics Certificate",
+      "issuer": "Internship Studio",
+      "platform": "Zatheta Algorithms & Internship Studio",
+      "completionDetails": "Completed: 2026",
+      "image": "assets/images/powerbi-cert.png",
+      "skillsGained": "DAX calculations | Relational modeling | Dashboard layouts"
+    }
+  ]
+}
