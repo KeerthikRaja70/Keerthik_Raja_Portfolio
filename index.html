@@ -25,6 +25,9 @@
     <!-- Mouse spotlight glow effect -->
     <div id="cursor-glow" aria-hidden="true"></div>
 
+    <!-- Analytics Network Background Canvas -->
+    <canvas id="analytics-canvas-bg" aria-hidden="true"></canvas>
+
     <!-- 1. LOADING SCREEN -->
     <div id="preloader" role="dialog" aria-modal="true" aria-label="Dashboard Loading">
         <div class="loader-container">
@@ -178,6 +181,18 @@
                                 <img src="assets/images/profile.jpg" alt="Keerthik Raja - Data Analyst" class="hero-img">
                                 <span class="online-indicator"></span>
                             </div>
+                            <!-- Mini Analytics Widget -->
+                            <div class="profile-analytics-widget" aria-label="KPI Visual">
+                                <div class="widget-metric-row">
+                                    <span class="widget-val">98%</span>
+                                    <span class="widget-label">DAX &amp; SQL</span>
+                                </div>
+                                <div class="widget-sparkline">
+                                    <svg width="60" height="15" viewBox="0 0 60 15" aria-hidden="true">
+                                        <path d="M0,12 Q15,4 30,10 T60,2" fill="none" stroke="var(--accent-cyan)" stroke-width="1.5" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
                             <span class="hire-badge-profile"><span class="status-dot"></span> Available for Full-Time / Remote</span>
                             <p class="hero-image-quote">"Data is not just numbers, it's the story behind decisions."</p>
                         </div>
@@ -214,54 +229,210 @@
                         <div class="performance-kpis">
                             <!-- KPI 1 -->
                             <div class="perf-kpi-tile">
-                                <span class="kpi-label"><i class="bx bx-folder text-blue"></i> Projects Completed</span>
-                                <span class="kpi-value-num">6+</span>
-                                <span class="kpi-trend text-green"><i class="bx bx-trending-up"></i> 20% vs last update</span>
+                                <div class="kpi-header">
+                                    <i class="fa-solid fa-chart-line text-blue kpi-icon"></i>
+                                    <span class="kpi-label">Projects Completed</span>
+                                </div>
+                                <div class="kpi-value-container">
+                                    <span class="kpi-value-num"><span class="counter-num" data-target="6">0</span>+</span>
+                                </div>
+                                <div class="kpi-support-row">
+                                    <span class="kpi-trend-badge text-green"><i class="fa-solid fa-caret-up"></i> +16.7%</span>
+                                    <span class="kpi-status-meta">vs last quarter</span>
+                                </div>
+                                <div class="kpi-sparkline-container">
+                                    <svg class="kpi-sparkline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="grad-blue-1" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(0,120,212,0.1)" />
+                                                <stop offset="100%" stop-color="var(--accent-blue)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M5,17 C25,15 45,11 65,7 C75,5 85,3 95,2" fill="none" stroke="url(#grad-blue-1)" stroke-width="1.8" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
                             </div>
 
                             <!-- KPI 2 -->
                             <div class="perf-kpi-tile">
-                                <span class="kpi-label"><i class="bx bx-show text-gold"></i> Dashboards Built</span>
-                                <span class="kpi-value-num">12+</span>
-                                <span class="kpi-trend text-purple"><i class="bx bx-trending-up"></i> 33% vs last update</span>
+                                <div class="kpi-header">
+                                    <i class="fa-solid fa-chart-simple text-gold kpi-icon"></i>
+                                    <span class="kpi-label">Dashboards Built</span>
+                                </div>
+                                <div class="kpi-value-container">
+                                    <span class="kpi-value-num"><span class="counter-num" data-target="12">0</span>+</span>
+                                </div>
+                                <div class="kpi-support-row">
+                                    <span class="kpi-trend-badge text-green"><i class="fa-solid fa-caret-up"></i> +25.0%</span>
+                                    <span class="kpi-status-meta">vs last update</span>
+                                </div>
+                                <div class="kpi-sparkline-container">
+                                    <svg class="kpi-sparkline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="grad-gold-2" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(212,175,55,0.1)" />
+                                                <stop offset="100%" stop-color="var(--accent-gold)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M5,18 C20,15 40,11 60,7 C75,5 85,3 95,2" fill="none" stroke="url(#grad-gold-2)" stroke-width="1.8" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
                             </div>
 
                             <!-- KPI 3 -->
                             <div class="perf-kpi-tile">
-                                <span class="kpi-label"><i class="bx bx-analyse text-green"></i> Business Solutions</span>
-                                <span class="kpi-value-num">6+</span>
-                                <span class="kpi-trend text-orange">6+ High Impact</span>
+                                <div class="kpi-header">
+                                    <i class="fa-solid fa-lightbulb text-green kpi-icon"></i>
+                                    <span class="kpi-label">Business Solutions</span>
+                                </div>
+                                <div class="kpi-value-container">
+                                    <span class="kpi-value-num"><span class="counter-num" data-target="6">0</span>+</span>
+                                </div>
+                                <div class="kpi-support-row">
+                                    <span class="kpi-trend-badge text-green"><i class="fa-solid fa-circle-check"></i> High Impact</span>
+                                    <span class="kpi-status-meta">Verified solutions</span>
+                                </div>
+                                <div class="kpi-sparkline-container">
+                                    <svg class="kpi-sparkline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="grad-green-3" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(16,124,65,0.1)" />
+                                                <stop offset="100%" stop-color="var(--accent-green)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M5,16 C25,14 50,11 70,8 C80,7 90,5 95,4" fill="none" stroke="url(#grad-green-3)" stroke-width="1.8" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
                             </div>
 
                             <!-- KPI 4 -->
                             <div class="perf-kpi-tile">
-                                <span class="kpi-label"><i class="bx bx-certification text-blue"></i> Certifications</span>
-                                <span class="kpi-value-num">5+</span>
-                                <span class="kpi-trend text-green">Verified Badges</span>
+                                <div class="kpi-header">
+                                    <i class="fa-solid fa-certificate text-blue kpi-icon"></i>
+                                    <span class="kpi-label">Certifications</span>
+                                </div>
+                                <div class="kpi-value-container">
+                                    <span class="kpi-value-num"><span class="counter-num" data-target="4">0</span>+</span>
+                                </div>
+                                <div class="kpi-support-row">
+                                    <span class="kpi-trend-badge text-blue"><i class="fa-solid fa-shield-halved"></i> Active</span>
+                                    <span class="kpi-status-meta">Verified badges</span>
+                                </div>
+                                <div class="kpi-sparkline-container">
+                                    <svg class="kpi-sparkline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="grad-blue-4" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(0,120,212,0.1)" />
+                                                <stop offset="100%" stop-color="var(--accent-blue)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M5,18 C30,15 60,9 80,5 C88,4 92,3 95,2" fill="none" stroke="url(#grad-blue-4)" stroke-width="1.8" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
                             </div>
 
                             <!-- KPI 5 -->
                             <div class="perf-kpi-tile">
-                                <span class="kpi-label"><i class="bx bx-data text-blue"></i> Data Processed</span>
-                                <span class="kpi-value-num">100K+ <span style="font-size:0.6rem;color:var(--text-muted)">Rows</span></span>
+                                <div class="kpi-header">
+                                    <i class="fa-solid fa-database text-blue kpi-icon"></i>
+                                    <span class="kpi-label">Data Processed</span>
+                                </div>
+                                <div class="kpi-value-container">
+                                    <span class="kpi-value-num"><span class="counter-num" data-target="100">0</span>K+</span>
+                                </div>
+                                <div class="kpi-support-row">
+                                    <span class="kpi-trend-badge text-green"><i class="fa-solid fa-caret-up"></i> Exponential</span>
+                                    <span class="kpi-status-meta">Automated pipelines</span>
+                                </div>
+                                <div class="kpi-sparkline-container">
+                                    <svg class="kpi-sparkline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="grad-cyan-5" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(0,242,254,0.1)" />
+                                                <stop offset="100%" stop-color="var(--accent-cyan)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M5,18 C35,18 55,16 70,12 C80,9 90,5 95,2" fill="none" stroke="url(#grad-cyan-5)" stroke-width="1.8" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
                             </div>
 
                             <!-- KPI 6 -->
                             <div class="perf-kpi-tile">
-                                <span class="kpi-label"><i class="bx bx-bot text-green"></i> Automation Built</span>
-                                <span class="kpi-value-num">4+</span>
+                                <div class="kpi-header">
+                                    <i class="fa-solid fa-robot text-green kpi-icon"></i>
+                                    <span class="kpi-label">Automation Built</span>
+                                </div>
+                                <div class="kpi-value-container">
+                                    <span class="kpi-value-num"><span class="counter-num" data-target="4">0</span>+</span>
+                                </div>
+                                <div class="kpi-support-row">
+                                    <span class="kpi-trend-badge text-green"><i class="fa-solid fa-gears"></i> n8n workflows</span>
+                                    <span class="kpi-status-meta">Operational efficiency</span>
+                                </div>
+                                <div class="kpi-sparkline-container">
+                                    <svg class="kpi-sparkline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="grad-green-6" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(16,124,65,0.1)" />
+                                                <stop offset="100%" stop-color="var(--accent-green)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M5,18 H30 V12 H60 V7 H80 V3 H95" fill="none" stroke="url(#grad-green-6)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
                             </div>
 
                             <!-- KPI 7 -->
                             <div class="perf-kpi-tile">
-                                <span class="kpi-label"><i class="bx bx-time text-gold"></i> Experience</span>
-                                <span class="kpi-value-num">1+ <span style="font-size:0.6rem;color:var(--text-muted)">Years</span></span>
+                                <div class="kpi-header">
+                                    <i class="fa-solid fa-briefcase text-gold kpi-icon"></i>
+                                    <span class="kpi-label">Experience</span>
+                                </div>
+                                <div class="kpi-value-container">
+                                    <span class="kpi-value-num"><span class="counter-num" data-target="1">0</span>+ Years</span>
+                                </div>
+                                <div class="kpi-support-row">
+                                    <span class="kpi-trend-badge text-gold"><i class="fa-solid fa-clock"></i> Active tenure</span>
+                                    <span class="kpi-status-meta">Continuous growth</span>
+                                </div>
+                                <div class="kpi-sparkline-container">
+                                    <svg class="kpi-sparkline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="grad-gold-7" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(212,175,55,0.1)" />
+                                                <stop offset="100%" stop-color="var(--accent-gold)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M5,16 L25,14 L50,12 L75,10 L95,8" fill="none" stroke="url(#grad-gold-7)" stroke-width="1.8" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
                             </div>
 
                             <!-- KPI 8 -->
                             <div class="perf-kpi-tile">
-                                <span class="kpi-label"><i class="bx bx-git-branch text-blue"></i> GitHub Contributions</span>
-                                <span class="kpi-value-num">150+</span>
+                                <div class="kpi-header">
+                                    <i class="fa-brands fa-github text-blue kpi-icon"></i>
+                                    <span class="kpi-label">GitHub Commits</span>
+                                </div>
+                                <div class="kpi-value-container">
+                                    <span class="kpi-value-num"><span class="counter-num" data-target="150">0</span>+</span>
+                                </div>
+                                <div class="kpi-support-row">
+                                    <span class="kpi-trend-badge text-green"><i class="fa-solid fa-caret-up"></i> +12% YoY</span>
+                                    <span class="kpi-status-meta">commits vs last month</span>
+                                </div>
+                                <div class="kpi-sparkline-container">
+                                    <svg class="kpi-sparkline" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="grad-blue-8" x1="0%" y1="100%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="rgba(0,120,212,0.1)" />
+                                                <stop offset="100%" stop-color="var(--accent-blue)" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M5,14 C15,9 25,17 38,11 C50,5 62,16 75,8 C85,2 92,13 95,6" fill="none" stroke="url(#grad-blue-8)" stroke-width="1.8" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -328,11 +499,7 @@
                 <div class="projects-section-header">
                     <span class="perf-title"><i class="bx bx-grid-alt"></i> Projects Workspace</span>
                     <div class="projects-filters">
-                        <span class="filter-tab active">All <span>6</span></span>
-                        <span class="filter-tab">Data Analytics <span>2</span></span>
-                        <span class="filter-tab">AI &amp; Automation <span>2</span></span>
-                        <span class="filter-tab">Finance <span>1</span></span>
-                        <span class="filter-tab">Confidential <span>1</span></span>
+                        <span class="filter-tab active">All Reports <span>2</span></span>
                     </div>
                 </div>
                 
@@ -357,6 +524,41 @@
                                 <div class="legend-item"><span class="legend-dot bg-blue"></span> <span>Data Analytics (45%)</span></div>
                                 <div class="legend-item"><span class="legend-dot bg-gold"></span> <span>Industrial Eng (35%)</span></div>
                                 <div class="legend-item"><span class="legend-dot bg-green"></span> <span>Electrical Control (20%)</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Technology Distribution -->
+                    <div class="exp-chart-card">
+                        <h5>Technology Distribution</h5>
+                        <div class="exp-bar-chart-wrap" style="display: flex; flex-direction: column; gap: 8px; margin-top: 0.5rem;" aria-label="Visual representation of technology stack usage">
+                            <div class="bar-chart-row" style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 0.65rem; width: 60px; color: var(--text-secondary); font-weight: 700;">Power BI</span>
+                                <div style="flex-grow: 1; background: rgba(255,255,255,0.03); height: 8px; border-radius: 4px; overflow: hidden; position: relative;">
+                                    <div style="background: var(--accent-blue); width: 95%; height: 100%;"></div>
+                                </div>
+                                <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; width: 25px; text-align: right;">95%</span>
+                            </div>
+                            <div class="bar-chart-row" style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 0.65rem; width: 60px; color: var(--text-secondary); font-weight: 700;">SQL</span>
+                                <div style="flex-grow: 1; background: rgba(255,255,255,0.03); height: 8px; border-radius: 4px; overflow: hidden; position: relative;">
+                                    <div style="background: var(--accent-blue); width: 90%; height: 100%;"></div>
+                                </div>
+                                <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; width: 25px; text-align: right;">90%</span>
+                            </div>
+                            <div class="bar-chart-row" style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 0.65rem; width: 60px; color: var(--text-secondary); font-weight: 700;">Python</span>
+                                <div style="flex-grow: 1; background: rgba(255,255,255,0.03); height: 8px; border-radius: 4px; overflow: hidden; position: relative;">
+                                    <div style="background: var(--accent-gold); width: 85%; height: 100%;"></div>
+                                </div>
+                                <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; width: 25px; text-align: right;">85%</span>
+                            </div>
+                            <div class="bar-chart-row" style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 0.65rem; width: 60px; color: var(--text-secondary); font-weight: 700;">Excel</span>
+                                <div style="flex-grow: 1; background: rgba(255,255,255,0.03); height: 8px; border-radius: 4px; overflow: hidden; position: relative;">
+                                    <div style="background: var(--accent-green); width: 90%; height: 100%;"></div>
+                                </div>
+                                <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; width: 25px; text-align: right;">90%</span>
                             </div>
                         </div>
                     </div>
@@ -631,16 +833,7 @@
         </div>
     </div>
 
-    <!-- MINIMAL FOOTER -->
-    <footer>
-        <div class="footer-content">
 
-            <div class="footer-copy">
-                &copy; 2026 Keerthik Raja. All Rights Reserved.
-            </div>
-
-        </div>
-    </footer>
 
     <!-- Custom Script -->
     <script src="script.js"></script>

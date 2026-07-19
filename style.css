@@ -830,63 +830,105 @@ section {
 }
 
 .perf-kpi-tile {
-    background-color: rgba(255, 255, 255, 0.01);
-    border: 1px solid var(--border-color);
-    border-radius: var(--br-md);
-    padding: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    background-color: rgba(8, 12, 22, 0.45) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: var(--br-md) !important;
+    padding: 1.2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    position: relative !important;
+    min-height: 190px !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    overflow: hidden !important;
 }
 
-.kpi-icon-wrap {
-    width: 28px;
-    height: 28px;
-    border-radius: var(--br-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
-    margin-bottom: 2px;
+.kpi-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    margin-bottom: 0.8rem !important;
 }
 
-.bg-soft-blue { background-color: rgba(0, 120, 212, 0.06); color: var(--accent-blue); }
-.bg-soft-gold { background-color: rgba(212, 175, 55, 0.06); color: var(--accent-gold); }
-.bg-soft-green { background-color: rgba(16, 124, 65, 0.06); color: var(--accent-green); }
+.kpi-icon {
+    font-size: 0.95rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
 
 .kpi-label {
-    font-size: 0.6rem;
-    color: var(--text-muted);
-    font-weight: 700;
+    font-size: 0.68rem !important;
+    color: var(--text-muted) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
 }
 
-.kpi-metrics-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 4px;
+.kpi-value-container {
+    margin-bottom: 0.4rem !important;
+    display: flex !important;
+    align-items: baseline !important;
 }
 
 .kpi-value-num {
-    font-size: 1.45rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1;
+    font-size: 1.65rem !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.5px !important;
 }
 
-.kpi-trend {
-    font-size: 0.58rem;
-    font-weight: 700;
-    margin-top: 2px;
+.kpi-support-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    margin-bottom: auto !important;
 }
 
-.text-green { color: #2ecc71; }
-.text-purple { color: #9b59b6; }
-.text-orange { color: #e67e22; }
+.kpi-trend-badge {
+    font-size: 0.58rem !important;
+    font-weight: 800 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+}
+
+.kpi-trend-badge.text-green {
+    background: rgba(46, 204, 113, 0.12) !important;
+    color: #2ecc71 !important;
+}
+
+.kpi-trend-badge.text-blue {
+    background: rgba(0, 120, 212, 0.12) !important;
+    color: var(--accent-blue) !important;
+}
+
+.kpi-trend-badge.text-gold {
+    background: rgba(212, 175, 55, 0.12) !important;
+    color: var(--accent-gold) !important;
+}
+
+.kpi-status-meta {
+    font-size: 0.58rem !important;
+    color: var(--text-muted) !important;
+    font-weight: 600 !important;
+}
+
+.kpi-sparkline-container {
+    width: 100% !important;
+    height: 35px !important;
+    margin-top: 0.8rem !important;
+    position: relative !important;
+}
 
 .kpi-sparkline {
-    width: 100%;
-    height: 20px;
-    margin-top: auto;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
 }
 
 .sparkline-svg {
@@ -3036,3 +3078,295 @@ a, h1, h2, h3, h4, h5, h6, .sidebar-link, .nav-link, .filter-tab, .btn {
         visibility: hidden !important;
     }
 }
+
+/* ==========================================================================
+   23. ENTERPRISE SAAS REFINEMENTS (MICROSOFT POWER BI DESIGNS)
+   ========================================================================== */
+
+#analytics-canvas-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+/* Base Body Radial Gradient Mesh Override */
+body {
+    background-color: #030712 !important;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 120, 212, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(8, 12, 22, 0.25) 0%, #030712 100%) !important;
+    background-attachment: fixed !important;
+}
+
+/* Spacing sheets & Unified Hero Spacing */
+section {
+    padding: 4rem 0 !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+#home {
+    padding-top: 1.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+#skills {
+    padding-top: 0.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+/* Skills equal height panel alignment */
+.skills-dashboard-grid-panel {
+    display: grid !important;
+    grid-template-columns: 1.1fr 0.9fr !important;
+    gap: 1.2rem !important;
+    align-items: stretch !important;
+}
+
+@media (max-width: 768px) {
+    .skills-dashboard-grid-panel {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Premium Uniform Glassmorphic Cards */
+.hero-profile-card,
+.performance-overview-card,
+.skills-panel-left,
+.skills-panel-right,
+.project-card-dashboard,
+.timeline-card,
+.certificate-card,
+.ai-achievement-card,
+.resume-compact-card,
+.why-work-panel,
+.rocket-accent-block,
+.contact-ticket-panel,
+.contact-kpi-card {
+    background: rgba(8, 12, 22, 0.45) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.hero-profile-card:hover,
+.performance-overview-card:hover,
+.skills-panel-left:hover,
+.skills-panel-right:hover,
+.timeline-card:hover,
+.certificate-card:hover,
+.ai-achievement-card:hover,
+.resume-compact-card:hover,
+.why-work-panel:hover,
+.rocket-accent-block:hover,
+.contact-ticket-panel:hover,
+.contact-kpi-card:hover {
+    transform: translateY(-4px) !important;
+    border-color: rgba(0, 120, 212, 0.3) !important;
+    box-shadow: 0 12px 40px 0 rgba(0, 72, 186, 0.15) !important;
+}
+
+/* KPI Value & SVG Sparkline Layouts */
+.kpi-value-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.kpi-sparkline {
+    flex-shrink: 0;
+    margin-bottom: 2px;
+    opacity: 0.85;
+}
+
+.kpi-sparkline path {
+    transition: filter 0.3s ease, stroke-width 0.3s ease;
+    filter: none !important;
+}
+
+/* Soft glow only on hover of the tile */
+.perf-kpi-tile:hover .kpi-sparkline path {
+    filter: drop-shadow(0 0 3px var(--accent-blue)) !important;
+    stroke-width: 2px;
+}
+.perf-kpi-tile:hover:nth-child(2) .kpi-sparkline path {
+    filter: drop-shadow(0 0 3px var(--accent-gold)) !important;
+}
+.perf-kpi-tile:hover:nth-child(3) .kpi-sparkline path {
+    filter: drop-shadow(0 0 3px var(--accent-green)) !important;
+}
+.perf-kpi-tile:hover:nth-child(4) .kpi-sparkline path {
+    filter: drop-shadow(0 0 3px var(--accent-blue)) !important;
+}
+.perf-kpi-tile:hover:nth-child(5) .kpi-sparkline path {
+    filter: drop-shadow(0 0 3px var(--accent-cyan)) !important;
+}
+.perf-kpi-tile:hover:nth-child(6) .kpi-sparkline path {
+    filter: drop-shadow(0 0 3px var(--accent-green)) !important;
+}
+.perf-kpi-tile:hover:nth-child(7) .kpi-sparkline path {
+    filter: drop-shadow(0 0 3px var(--accent-gold)) !important;
+}
+.perf-kpi-tile:hover:nth-child(8) .kpi-sparkline path {
+    filter: drop-shadow(0 0 3px var(--accent-blue)) !important;
+}
+
+/* Featured Project Banner styling overrides */
+.featured-projects-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+}
+
+.featured-project-card {
+    grid-column: 1 / -1 !important;
+    display: grid !important;
+    grid-template-columns: 1.3fr 1fr !important;
+    gap: 1.8rem !important;
+    align-items: stretch !important;
+    padding: 1.8rem !important;
+    min-height: 380px !important;
+}
+
+.featured-img-wrap {
+    height: 100% !important;
+    min-height: 280px !important;
+    border-radius: var(--br-md) !important;
+    overflow: hidden !important;
+}
+
+.featured-img-wrap img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.featured-content-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+}
+
+/* Premium Project Hover interaction */
+.featured-project-card:hover {
+    transform: translateY(-6px) scale(1.002) !important;
+    box-shadow: 0 20px 40px rgba(0, 120, 212, 0.18) !important;
+    border-color: rgba(0, 120, 212, 0.4) !important;
+}
+
+.featured-project-card:hover .featured-img-wrap img {
+    transform: scale(1.03) !important;
+}
+
+@media (max-width: 850px) {
+    .featured-project-card {
+        grid-template-columns: 1fr !important;
+        gap: 1.2rem !important;
+        padding: 1.2rem !important;
+    }
+    .featured-img-wrap {
+        height: 200px !important;
+        min-height: 200px !important;
+    }
+}
+
+/* Circular Profile Avatar frame & mini widget */
+.hero-profile-frame {
+    width: 140px !important;
+    height: 140px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    border: 3px solid rgba(0, 120, 212, 0.35) !important;
+    box-shadow: 0 8px 32px rgba(0, 120, 212, 0.25) !important;
+    position: relative;
+    margin: 0 auto;
+}
+
+.hero-profile-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.profile-analytics-widget {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: var(--br-md) !important;
+    padding: 8px 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
+    width: 100% !important;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.widget-metric-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.widget-val {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    line-height: 1.1;
+}
+
+.widget-label {
+    font-size: 0.58rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.widget-sparkline svg {
+    display: block;
+    opacity: 0.8;
+}
+
+/* Career specialization 3-column reflow */
+.experience-visuals-panel {
+    display: grid !important;
+    grid-template-columns: 1.15fr 1.15fr 0.8fr !important;
+    gap: 1.2rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+    width: 100% !important;
+}
+
+@media (max-width: 900px) {
+    .experience-visuals-panel {
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .experience-visuals-panel {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Force AI & Automation Projects Grid to be side-by-side horizontal */
+#ai-projects-container {
+    grid-template-columns: 1fr 1fr !important;
+}
+
+@media (max-width: 768px) {
+    #ai-projects-container {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+

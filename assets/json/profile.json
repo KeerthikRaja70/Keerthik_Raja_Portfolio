@@ -139,29 +139,6 @@
         "Incorporate user feedback loops for fine-tuning embeddings.",
         "Deploy the agent directly onto internal Slack or Discord teams."
       ]
-    },
-    {
-      "title": "Securitisation Portfolio Analysis",
-      "category": "Banking Analytics",
-      "image": "assets/images/securitisation-dashboard.png",
-      "tools": "Power BI | DAX | Excel",
-      "isConfidential": true,
-      "githubUrl": "https://github.com/KeerthikRaja70",
-      "problem": "Cleaned and prepared a 6,000+ record dataset using SQL. Built interactive Power BI dashboards to analyze loan portfolio credit risk, vintage performance, and recovery behavior.",
-      "questions": [
-        "What problem was analyzed? Loan portfolio health, default rates, and risk concentration.",
-        "What business questions were answered?",
-        "1. How is the loan portfolio performing over time?",
-        "2. How is credit risk distributed?"
-      ],
-      "findings": [
-        "Delinquency hotspots were isolated to specific geographical divisions.",
-        "Vintage curves revealed default spikes peaking in the 4th month post-issuance."
-      ],
-      "recommendations": [
-        "Tighten credit underwriting standards for high-risk regions.",
-        "Recalibrate capital reserves dynamically utilizing vintage loss curves."
-      ]
     }
   ],
   "aiAchievements": [

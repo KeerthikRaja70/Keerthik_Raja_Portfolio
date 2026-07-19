@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupThemeToggle();
     setupClipboardCopy();
     setupCertificateSecurity();
+    initAnalyticsCanvas();
     loadProfileData();
 });
 
@@ -335,13 +336,13 @@ function renderProjectsGrid() {
     if (!container) return;
     container.innerHTML = "";
     
-    // Render main business dashboards only (Retail, E-commerce, Securitisation)
-    const mainProjects = profileData.projects.filter(p => p.category !== "Automation" && p.category !== "AI Development");
+    // Render main business dashboards only (Retail, E-commerce)
+    const mainProjects = profileData.projects.filter(p => p.category !== "Automation" && p.category !== "AI Development" && !p.title.toLowerCase().includes("securitisation"));
     
     mainProjects.forEach((proj) => {
         const index = profileData.projects.findIndex(p => p.title === proj.title);
         const card = document.createElement("div");
-        card.className = "project-card-dashboard";
+        card.className = "project-card-dashboard featured-project-card";
         
         let visualHtml = "";
         if (proj.isConfidential) {
@@ -358,21 +359,58 @@ function renderProjectsGrid() {
             `;
         }
         
+        const isRetail = proj.title.toLowerCase().includes("retail");
+        const kpisHtml = isRetail ? `
+            <div class="featured-project-kpis" style="display: flex; gap: 1.2rem; margin: 0.8rem 0; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.8rem;">
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:0.55rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Response Rate</span>
+                    <span style="font-size:0.95rem; font-weight:800; color:var(--accent-cyan);">+18% Optimized</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:0.55rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Data Model</span>
+                    <span style="font-size:0.95rem; font-weight:800; color:var(--accent-blue);">Relational SQL Schema</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:0.55rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">View Depth</span>
+                    <span style="font-size:0.95rem; font-weight:800; color:var(--accent-gold);">2-Page Dashboard</span>
+                </div>
+            </div>
+        ` : `
+            <div class="featured-project-kpis" style="display: flex; gap: 1.2rem; margin: 0.8rem 0; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.8rem;">
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:0.55rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Category Focus</span>
+                    <span style="font-size:0.95rem; font-weight:800; color:var(--accent-cyan);">Dresses Revenue Lead</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:0.55rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Data Volume</span>
+                    <span style="font-size:0.95rem; font-weight:800; color:var(--accent-blue);">1,000+ Cleaned Rows</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:0.55rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Data Model</span>
+                    <span style="font-size:0.95rem; font-weight:800; color:var(--accent-gold);">SQL Relational Joins</span>
+                </div>
+            </div>
+        `;
+        
         card.innerHTML = `
-            <div class="project-card-img-wrap">
+            <div class="project-card-img-wrap featured-img-wrap">
                 ${visualHtml}
             </div>
-            <div class="project-card-content">
+            <div class="project-card-content featured-content-wrap">
                 <div class="project-card-hdr">
                     <span class="project-category">${proj.category}</span>
-                    ${proj.isConfidential ? '<span class="confidential-badge" style="font-size:0.6rem;">Confidential</span>' : ''}
+                    <span class="badge-status" style="font-size:0.55rem; background:rgba(0,120,212,0.15); border:1px solid rgba(0,120,212,0.3); color:var(--accent-blue); padding:1px 6px; border-radius:3px; font-weight:800; text-transform:uppercase;">Featured Report</span>
                 </div>
-                <h3 class="project-title-dash">${proj.title}</h3>
-                <p class="project-problem-text">${proj.problem}</p>
-                <div class="project-tools-used">
+                <h3 class="project-title-dash" style="font-size:1.15rem; margin-bottom:0.4rem; color:var(--text-primary); font-weight:800;">${proj.title}</h3>
+                <p class="project-problem-text" style="font-size:0.75rem; margin-bottom:0.6rem; color:var(--text-secondary); line-height:1.4;">${proj.problem}</p>
+                
+                <!-- Real Business Metrics Sub-Panel -->
+                ${kpisHtml}
+
+                <div class="project-tools-used" style="margin-bottom:0.8rem; margin-top:0px;">
                     Tools: ${proj.tools.split(" | ").map(t => `<span>${t}</span>`).join("")}
                 </div>
-                <div class="project-links-row">
+                <div class="project-links-row" style="margin-top:0px;">
                     <button class="btn btn-primary btn-solution-trigger">Business Solution</button>
                     <a href="${proj.githubUrl}" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View GitHub</a>
                 </div>
@@ -781,10 +819,10 @@ function getLocalFallback(query) {
         return `Keerthik brings a strong operations-optimization background from Industrial Engineering. He has built capacity variance forecasting models that closed 12% output gaps and automates audits using lookup matrices.`;
     }
     if (q.includes("power bi") || q.includes("dax") || q.includes("dashboard")) {
-        return `Keerthik is highly proficient in Power BI, Advanced DAX, and relational modeling. He has built a Securitisation Portfolio dashboard (6k accounts, credit risk analysis), a Retail Sales Analysis dashboard, and a comprehensive E-Commerce Sales dashboard.`;
+        return `Keerthik is highly proficient in Power BI, Advanced DAX, and relational modeling. He has built a Retail Sales Analysis dashboard and a comprehensive E-Commerce Sales dashboard.`;
     }
     if (q.includes("sql") || q.includes("database")) {
-        return `Keerthik is skilled in SQL. He uses Joins, CTEs, subqueries, and table normalization to process large raw datasets (such as his 6,000+ record securitisation database).`;
+        return `Keerthik is skilled in SQL. He uses Joins, CTEs, subqueries, and table normalization to process and clean large transactional datasets.`;
     }
     if (q.includes("python") || q.includes("pandas") || q.includes("numpy")) {
         return `Keerthik uses Python for EDA and data cleaning, relying on Pandas and NumPy. He is certified in Python Data Structures by the University of Michigan.`;
@@ -919,24 +957,6 @@ function getBackupProfile() {
                 ],
                 "recommendations": [
                     "Incorporate user feedback loops for fine-tuning embeddings."
-                ]
-            },
-            {
-                "title": "Securitisation Portfolio Analysis",
-                "category": "Banking Analytics",
-                "image": "assets/images/securitisation-dashboard.png",
-                "tools": "Power BI | DAX | Excel",
-                "isConfidential": true,
-                "githubUrl": "https://github.com/KeerthikRaja70",
-                "problem": "Cleaned and prepared a 6,000+ record dataset using SQL. Built interactive Power BI dashboards to analyze loan portfolio credit risk.",
-                "questions": [
-                    "What problem was analyzed? Loan portfolio health, default rates, and risk concentration."
-                ],
-                "findings": [
-                    "Delinquency hotspots were isolated to specific geographical divisions."
-                ],
-                "recommendations": [
-                    "Tighten credit underwriting standards for high-risk regions."
                 ]
             }
         ],
@@ -1092,4 +1112,154 @@ function setupCertificateSecurity() {
             removeCertificateBlur();
         }
     });
+}
+
+// 11. DYNAMIC DATA ANALYTICS BG CANVAS
+function initAnalyticsCanvas() {
+    const canvas = document.getElementById("analytics-canvas-bg");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    
+    window.addEventListener("resize", () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+    
+    const numNodes = Math.min(60, Math.floor((width * height) / 25000));
+    const nodes = [];
+    const maxDistance = 110;
+    
+    for (let i = 0; i < numNodes; i++) {
+        nodes.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            radius: Math.random() * 1.5 + 1
+        });
+    }
+    
+    let mouse = { x: null, y: null, active: false };
+    window.addEventListener("mousemove", (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+    });
+    window.addEventListener("mouseleave", () => {
+        mouse.active = false;
+    });
+    
+    const streams = [];
+    
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        const isDarkMode = document.documentElement.getAttribute("data-theme") !== "light";
+        
+        // 1. Subtle analytics grid lines
+        ctx.strokeStyle = isDarkMode ? "rgba(255, 255, 255, 0.015)" : "rgba(0, 0, 0, 0.01)";
+        ctx.lineWidth = 1;
+        const gridSize = 80;
+        for (let x = 0; x < width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, height);
+            ctx.stroke();
+        }
+        for (let y = 0; y < height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(width, y);
+            ctx.stroke();
+        }
+        
+        // 2. Connections and nodes
+        for (let i = 0; i < nodes.length; i++) {
+            const nodeA = nodes[i];
+            
+            nodeA.x += nodeA.vx;
+            nodeA.y += nodeA.vy;
+            
+            if (nodeA.x < 0 || nodeA.x > width) nodeA.vx *= -1;
+            if (nodeA.y < 0 || nodeA.y > height) nodeA.vy *= -1;
+            
+            ctx.fillStyle = isDarkMode ? "rgba(0, 120, 212, 0.25)" : "rgba(0, 90, 158, 0.15)";
+            ctx.beginPath();
+            ctx.arc(nodeA.x, nodeA.y, nodeA.radius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            for (let j = i + 1; j < nodes.length; j++) {
+                const nodeB = nodes[j];
+                const dx = nodeA.x - nodeB.x;
+                const dy = nodeA.y - nodeB.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < maxDistance) {
+                    const alpha = (1 - dist / maxDistance) * 0.12;
+                    ctx.strokeStyle = isDarkMode 
+                        ? `rgba(255, 255, 255, ${alpha})`
+                        : `rgba(0, 90, 158, ${alpha * 0.5})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(nodeA.x, nodeA.y);
+                    ctx.lineTo(nodeB.x, nodeB.y);
+                    ctx.stroke();
+                    
+                    if (Math.random() < 0.0003 && streams.length < 20) {
+                        streams.push({
+                            fromX: nodeA.x,
+                            fromY: nodeA.y,
+                            toX: nodeB.x,
+                            toY: nodeB.y,
+                            progress: 0,
+                            speed: Math.random() * 0.01 + 0.005
+                        });
+                    }
+                }
+            }
+            
+            if (mouse.active) {
+                const mdx = nodeA.x - mouse.x;
+                const mdy = nodeA.y - mouse.y;
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < 140) {
+                    const malpha = (1 - mdist / 140) * 0.18;
+                    ctx.strokeStyle = isDarkMode 
+                        ? `rgba(0, 120, 212, ${malpha})`
+                        : `rgba(0, 90, 158, ${malpha * 0.5})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(nodeA.x, nodeA.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        // 3. Data streams
+        for (let i = streams.length - 1; i >= 0; i--) {
+            const stream = streams[i];
+            stream.progress += stream.speed;
+            
+            if (stream.progress >= 1) {
+                streams.splice(i, 1);
+                continue;
+            }
+            
+            const currentX = stream.fromX + (stream.toX - stream.fromX) * stream.progress;
+            const currentY = stream.fromY + (stream.toY - stream.fromY) * stream.progress;
+            
+            ctx.fillStyle = isDarkMode ? "rgba(0, 242, 254, 0.45)" : "rgba(0, 90, 158, 0.3)";
+            ctx.beginPath();
+            ctx.arc(currentX, currentY, 1.2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
 }
