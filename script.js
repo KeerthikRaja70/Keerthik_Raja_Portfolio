@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupMobileMenu();
     setupThemeToggle();
     setupClipboardCopy();
+    setupCertificateSecurity();
     loadProfileData();
 });
 
@@ -90,13 +91,15 @@ function setupScrollEffects() {
         const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
         const currentScroll = window.scrollY;
         const scrollPercentage = (currentScroll / totalScroll) * 100;
-        scrollBar.style.width = `${scrollPercentage}%`;
+        if (scrollBar) scrollBar.style.width = `${scrollPercentage}%`;
         
         // Header shadow
-        if (window.scrollY > 30) {
-            header.style.boxShadow = "0 8px 30px rgba(0, 0, 0, 0.4)";
-        } else {
-            header.style.boxShadow = "none";
+        if (header) {
+            if (window.scrollY > 30) {
+                header.style.boxShadow = "0 8px 30px rgba(0, 0, 0, 0.4)";
+            } else {
+                header.style.boxShadow = "none";
+            }
         }
         
         // Active section highlighters
@@ -121,6 +124,8 @@ function setupMobileMenu() {
     const menuToggle = document.getElementById("menu-toggle");
     const navMenu = document.getElementById("nav-menu");
     
+    if (!menuToggle || !navMenu) return;
+    
     menuToggle.addEventListener("click", () => {
         const expanded = menuToggle.getAttribute("aria-expanded") === "true";
         menuToggle.setAttribute("aria-expanded", !expanded);
@@ -141,10 +146,12 @@ function setupThemeToggle() {
     const toggleBtn = document.getElementById("theme-toggle");
     const themeIcon = document.getElementById("theme-icon");
     
+    if (!toggleBtn || !themeIcon) return;
+    
     toggleBtn.addEventListener("click", () => {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', currentTheme);
-        themeIcon.className = currentTheme === 'dark' ? "bx bx-moon" : "bx bx-sun";
+        themeIcon.className = currentTheme === 'dark' ? "fa-solid fa-moon" : "fa-solid fa-sun";
     });
 }
 
@@ -227,9 +234,14 @@ function renderExperienceTimeline() {
         const badgeColor = isIE ? "bg-gold" : (isElec ? "bg-gold" : "bg-blue");
         const badgeIcon = isIE ? "bx-cog" : (isElec ? "bx-wrench" : "bx-line-chart");
         
-        let skillsHtml = "";
-        exp.highlights.forEach(s => {
-            skillsHtml += `<span class="skill-tag ${isIE || isElec ? '' : 'text-blue'}">${s}</span>`;
+        let highlightsHtml = "";
+        exp.highlights.forEach(h => {
+            highlightsHtml += `
+                <li class="timeline-bullet-item">
+                    <i class="bx bx-check-circle timeline-bullet-icon"></i>
+                    <span>${h}</span>
+                </li>
+            `;
         });
         
         node.innerHTML = `
@@ -242,10 +254,9 @@ function renderExperienceTimeline() {
                     </div>
                     <span class="timeline-date-badge">${exp.period}</span>
                 </div>
-                <h4 class="timeline-sub-skills-title">Core Highlights:</h4>
-                <div class="timeline-skills-row">
-                    ${skillsHtml}
-                </div>
+                <ul class="timeline-bullets-list">
+                    ${highlightsHtml}
+                </ul>
             </div>
         `;
         timeline.appendChild(node);
@@ -253,29 +264,70 @@ function renderExperienceTimeline() {
 }
 
 function renderAIAchievements() {
+    const aiProjectsContainer = document.getElementById("ai-projects-container");
     const container = document.getElementById("ai-achievements-container");
-    if (!container) return;
-    container.innerHTML = "";
     
-    const icons = [
-        "bx-cog",
-        "bx-support",
-        "bx-plug",
-        "bx-bolt",
-        "bx-brain"
-    ];
-    
-    profileData.aiAchievements.forEach((ach, index) => {
-        const card = document.createElement("div");
-        card.className = "ai-achievement-card";
-        const iconClass = icons[index % icons.length];
+    // Render AI & Automation projects in achievements grid
+    if (aiProjectsContainer) {
+        aiProjectsContainer.innerHTML = "";
+        const aiProjects = profileData.projects.filter(p => p.category === "Automation" || p.category === "AI Development");
         
-        card.innerHTML = `
-            <div class="ai-ach-icon"><i class="bx ${iconClass}"></i></div>
-            <div class="ai-ach-text">${ach}</div>
-        `;
-        container.appendChild(card);
-    });
+        aiProjects.forEach((proj) => {
+            const index = profileData.projects.findIndex(p => p.title === proj.title);
+            const card = document.createElement("div");
+            card.className = "project-card-dashboard";
+            
+            card.innerHTML = `
+                <div class="project-card-img-wrap">
+                    <img src="${proj.image}" alt="${proj.title}" loading="lazy">
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-hdr">
+                        <span class="project-category">${proj.category}</span>
+                    </div>
+                    <h3 class="project-title-dash">${proj.title}</h3>
+                    <p class="project-problem-text">${proj.problem}</p>
+                    <div class="project-tools-used">
+                        Tools: ${proj.tools.split(" | ").map(t => `<span>${t}</span>`).join("")}
+                    </div>
+                    <div class="project-links-row">
+                        <button class="btn btn-primary btn-solution-trigger">Business Solution</button>
+                        <a href="${proj.githubUrl}" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View GitHub</a>
+                    </div>
+                </div>
+            `;
+            
+            card.querySelector(".btn-solution-trigger").addEventListener("click", () => {
+                openSolutionLightbox(index);
+            });
+            
+            aiProjectsContainer.appendChild(card);
+        });
+    }
+    
+    // Render text highlights
+    if (container) {
+        container.innerHTML = "";
+        const icons = [
+            "bx-cog",
+            "bx-support",
+            "bx-plug",
+            "bx-rocket",
+            "bx-brain"
+        ];
+        
+        profileData.aiAchievements.forEach((ach, index) => {
+            const card = document.createElement("div");
+            card.className = "ai-achievement-card";
+            const iconClass = icons[index % icons.length];
+            
+            card.innerHTML = `
+                <div class="ai-ach-icon"><i class="bx ${iconClass}"></i></div>
+                <div class="ai-ach-text">${ach}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
 }
 
 function renderProjectsGrid() {
@@ -283,7 +335,11 @@ function renderProjectsGrid() {
     if (!container) return;
     container.innerHTML = "";
     
-    profileData.projects.forEach((proj, index) => {
+    // Render main business dashboards only (Retail, E-commerce, Securitisation)
+    const mainProjects = profileData.projects.filter(p => p.category !== "Automation" && p.category !== "AI Development");
+    
+    mainProjects.forEach((proj) => {
+        const index = profileData.projects.findIndex(p => p.title === proj.title);
         const card = document.createElement("div");
         card.className = "project-card-dashboard";
         
@@ -317,7 +373,7 @@ function renderProjectsGrid() {
                     Tools: ${proj.tools.split(" | ").map(t => `<span>${t}</span>`).join("")}
                 </div>
                 <div class="project-links-row">
-                    <button class="btn btn-primary btn-solution-trigger" data-proj-idx="${index}">Business Solution</button>
+                    <button class="btn btn-primary btn-solution-trigger">Business Solution</button>
                     <a href="${proj.githubUrl}" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View GitHub</a>
                 </div>
             </div>
@@ -339,25 +395,36 @@ function renderCertifications() {
     profileData.certifications.forEach((cert, index) => {
         const card = document.createElement("div");
         card.className = "certificate-card";
-        card.setAttribute("tabindex", "0");
-        card.setAttribute("role", "button");
-        card.setAttribute("aria-label", `View certificate for ${cert.title}`);
         
+        let imageHtml = "";
+        if (cert.image) {
+            imageHtml = `<img src="${cert.image}" alt="${cert.title}">`;
+            card.setAttribute("tabindex", "0");
+            card.setAttribute("role", "button");
+            card.setAttribute("aria-label", `View certificate for ${cert.title}`);
+            card.addEventListener("click", () => openCertLightbox(index));
+            card.addEventListener("keydown", e => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openCertLightbox(index);
+                }
+            });
+        } else {
+            imageHtml = `<div class="cert-placeholder-icon"><i class="bx bx-briefcase"></i></div>`;
+            card.style.cursor = "default";
+        }
+        
+        // Wrapped text details in certificate-info to force vertical block flow layout
         card.innerHTML = `
-            <img src="${cert.image}" alt="${cert.title}">
-            <h3>${cert.title}</h3>
-            <p><strong>Platform:</strong> ${cert.platform}</p>
-            <p style="font-size:0.75rem;margin-top:4px;"><strong>Skills:</strong> ${cert.skillsGained}</p>
-            <p style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">${cert.completionDetails}</p>
+            ${imageHtml}
+            <div class="certificate-info">
+                <h3>${cert.title}</h3>
+                <p><strong>Platform:</strong> ${cert.platform}</p>
+                <p class="cert-skills-line"><strong>Skills:</strong> ${cert.skillsGained}</p>
+                <p class="cert-date-line">${cert.completionDetails}</p>
+            </div>
         `;
         
-        card.addEventListener("click", () => openCertLightbox(index));
-        card.addEventListener("keydown", e => {
-            if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                openCertLightbox(index);
-            }
-        });
         container.appendChild(card);
     });
 }
@@ -550,28 +617,58 @@ function setupClipboardCopy() {
     }
 }
 
-// 8. SIGNATURE AI ANALYST REPRESENTATIVE WIDGET
+/// 8. SIGNATURE AI ANALYST REPRESENTATIVE WIDGET
 function setupAIAssistant() {
     const trigger = document.getElementById("ai-assistant-trigger");
     const panel = document.getElementById("ai-chat-panel");
     const closeBtn = document.getElementById("ai-chat-close");
+    const header = document.querySelector(".ai-chat-header");
+    
+    // Floating bot form elements
     const form = document.getElementById("ai-chat-form");
     const input = document.getElementById("ai-chat-input");
     const suggestions = document.getElementById("ai-chat-suggestions");
     
-    if (!trigger) return;
+    // Toggle active state on trigger click
+    if (trigger) {
+        trigger.addEventListener("click", () => {
+            panel.classList.add("active");
+            trigger.style.display = "none";
+            if (input) input.focus();
+        });
+    }
     
-    trigger.addEventListener("click", () => {
-        panel.classList.toggle("active");
-        if (panel.classList.contains("active")) input.focus();
-    });
+    // Toggle active state on header click (collapsing chatbot back to trigger button)
+    if (header) {
+        header.addEventListener("click", (e) => {
+            if (e.target.closest("#ai-chat-close")) {
+                panel.classList.remove("active");
+                if (trigger) trigger.style.display = "flex";
+                return;
+            }
+            panel.classList.toggle("active");
+            if (!panel.classList.contains("active")) {
+                if (trigger) trigger.style.display = "flex";
+            } else {
+                if (trigger) trigger.style.display = "none";
+                if (input) input.focus();
+            }
+        });
+    }
     
-    closeBtn.addEventListener("click", () => panel.classList.remove("active"));
+    if (closeBtn) {
+        closeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            panel.classList.remove("active");
+            if (trigger) trigger.style.display = "flex";
+        });
+    }
     
+    // Floating chatbot event bindings
     if (suggestions) {
         suggestions.addEventListener("click", e => {
             const chip = e.target.closest(".suggestion-chip");
-            if (chip) submitUserQuery(chip.textContent);
+            if (chip) submitUserQuery(chip.textContent, "ai-chat-body", input);
         });
     }
     
@@ -579,7 +676,7 @@ function setupAIAssistant() {
         form.addEventListener("submit", e => {
             e.preventDefault();
             const val = input.value.trim();
-            if (val) submitUserQuery(val);
+            if (val) submitUserQuery(val, "ai-chat-body", input);
         });
     }
 }
@@ -587,21 +684,24 @@ function setupAIAssistant() {
 function triggerAIChatAutoPopup() {
     setTimeout(() => {
         const panel = document.getElementById("ai-chat-panel");
+        const trigger = document.getElementById("ai-assistant-trigger");
         if (panel && !panel.classList.contains("active")) {
             panel.classList.add("active");
+            if (trigger) trigger.style.display = "none";
         }
     }, 2500); // 2.5 seconds after boot loading is finished
 }
 
-function submitUserQuery(query) {
-    const chatBody = document.getElementById("ai-chat-body");
-    const input = document.getElementById("ai-chat-input");
+function submitUserQuery(query, chatBodyId, inputEl) {
+    const chatBody = document.getElementById(chatBodyId);
+    if (!chatBody) return;
     
     const userMsg = document.createElement("div");
     userMsg.className = "chat-msg user";
     userMsg.textContent = query;
     chatBody.appendChild(userMsg);
-    input.value = "";
+    
+    if (inputEl) inputEl.value = "";
     chatBody.scrollTop = chatBody.scrollHeight;
     
     // Typing indicator
@@ -617,11 +717,11 @@ function submitUserQuery(query) {
     chatBody.appendChild(botLoading);
     chatBody.scrollTop = chatBody.scrollHeight;
     
-    dispatchAPIQuery(query, botLoading);
+    dispatchAPIQuery(query, botLoading, chatBodyId);
 }
 
-async function dispatchAPIQuery(query, loadingEl) {
-    const chatBody = document.getElementById("ai-chat-body");
+async function dispatchAPIQuery(query, loadingEl, chatBodyId) {
+    const chatBody = document.getElementById(chatBodyId);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     
@@ -647,17 +747,18 @@ async function dispatchAPIQuery(query, loadingEl) {
             text = "Using local backup database: Keerthik Raja is skilled in SQL, Power BI (DAX), and Python. Contact him directly.";
         }
         
-        appendBotMessage(text);
+        appendBotMessage(text, chatBodyId);
     } catch (err) {
         clearTimeout(timeout);
         console.warn("API error. Using local rule fallback matcher:", err);
         loadingEl.remove();
-        appendBotMessage(getLocalFallback(query));
+        appendBotMessage(getLocalFallback(query), chatBodyId);
     }
 }
 
-function appendBotMessage(text) {
-    const chatBody = document.getElementById("ai-chat-body");
+function appendBotMessage(text, chatBodyId) {
+    const chatBody = document.getElementById(chatBodyId);
+    if (!chatBody) return;
     const botMsg = document.createElement("div");
     botMsg.className = "chat-msg bot";
     
@@ -708,132 +809,134 @@ function getBackupProfile() {
             "linkedin": "https://linkedin.com/in/keerthik-raja70",
             "github": "https://github.com/KeerthikRaja70",
             "location": "Erode, Tamil Nadu, India",
-            "summary": "Results-oriented Data Analyst with an Industrial Engineering background. Skilled in SQL, Power BI, Excel, and Python."
+            "summary": "Results-oriented Data Analyst with an Industrial Engineering background and hands-on experience in performance reporting, dashboard development, KPI tracking, and trend analysis. Skilled in SQL, Power BI, Excel, and Python for transforming raw data into clear insights and recommendations."
         },
         "experience": [
             {
                 "role": "Industrial Engineer",
-                "company": "Jay Jay Mills",
-                "period": "2025 - 2026",
+                "company": "Jay Jay Mills, Erode",
+                "period": "Apr 2025 – Feb 2026",
                 "highlights": [
-                    "Process optimization",
-                    "Data-driven decision making",
-                    "Production analysis",
-                    "Operational improvement"
-                ]
-            },
-            {
-                "role": "Data Analyst Intern",
-                "company": "Zetheta Algorithms Pvt Ltd",
-                "period": "2026",
-                "highlights": [
-                    "Data cleaning",
-                    "Exploratory data analysis",
-                    "Power BI dashboard development",
-                    "Business insights generation"
+                    "Built shift-level production forecast models in Excel to monitor performance trends and support same-day corrective action, helping reduce an average production shortfall of 12% by the following shift.",
+                    "Prepared end-of-shift variance analysis reports that translated operational data into clear performance insights, enabling faster decisions by the operations team.",
+                    "Identified recurring loss patterns and root causes across multiple bottlenecks, with recommendations adopted within the same week to improve output consistency.",
+                    "Automated operator assignment audits using VLOOKUP and XLOOKUP across 5+ production lines, improving reporting accuracy and reducing manual checking effort."
                 ]
             },
             {
                 "role": "Data Analyst Intern",
                 "company": "Internship Studio",
-                "period": "2026",
+                "period": "May 2026 – Jun 2026",
                 "highlights": [
-                    "Data analysis projects",
-                    "Dashboard creation",
-                    "Reporting",
-                    "Data visualization"
+                    "Developed a 2-page interactive Power BI dashboard for Retail Sales Data Analysis, highlighting customer response, revenue performance, sales trends, and customer activity.",
+                    "Created KPI-driven reports using Power BI, DAX, and Power Query to help track business performance and surface trends across customer and sales data."
                 ]
             },
             {
                 "role": "Electrician",
                 "company": "Nile Controllers",
-                "period": "2024",
+                "period": "Jun 2021 – Dec 2022",
                 "highlights": [
-                    "Technical troubleshooting",
-                    "Equipment maintenance",
-                    "Problem solving"
+                    "Technical troubleshooting and electrical controls maintenance.",
+                    "Equipment installation and operational problem solving."
                 ]
             }
         ],
         "projects": [
             {
-                "title": "Securitisation Portfolio Analysis Dashboard",
+                "title": "Retail Sales Analysis Dashboard",
+                "category": "Retail Analytics",
+                "image": "assets/images/projects/retail/project_1_1.png",
+                "tools": "Power BI | SQL | DAX",
+                "isConfidential": false,
+                "githubUrl": "https://github.com/KeerthikRaja70/retail-sales-analysis",
+                "problem": "Comprehensive sales analysis to track performance, identify seasonal sales patterns, and uncover buying trends in Power BI to evaluate campaign response rates.",
+                "questions": [
+                    "What problem was analyzed? Optimizing store revenues and customer response metrics across product lines.",
+                    "What business questions were answered?",
+                    "1. Which product categories generate the highest revenue?",
+                    "2. What are the monthly sales trends?"
+                ],
+                "findings": [
+                    "Identified top-performing product categories.",
+                    "Found seasonal sales patterns and monthly sales variances."
+                ],
+                "recommendations": [
+                    "Align marketing campaigns with high-performing product categories.",
+                    "Optimize inventory planning matching seasonal sales patterns."
+                ]
+            },
+            {
+                "title": "E-Commerce Sales Analysis",
+                "category": "Retail Analytics",
+                "image": "assets/images/projects/ecommerce/dashboard_1.png",
+                "tools": "Power BI | SQL | Excel",
+                "isConfidential": false,
+                "githubUrl": "https://github.com/KeerthikRaja70/ecommerce-sales-analysis",
+                "problem": "Analyzed e-commerce data to uncover trends in sales, products, and customer behavior.",
+                "questions": [
+                    "What problem was analyzed? Wrangling product review distributions and category revenue potential."
+                ],
+                "findings": [
+                    "Top premium brands generated the highest digital conversions.",
+                    "Dresses category generated disproportionately high revenue relative to SKU count."
+                ],
+                "recommendations": [
+                    "Adopt Dresses category priority for inventory allocation decisions."
+                ]
+            },
+            {
+                "title": "AI Powered Automation",
+                "category": "Automation",
+                "image": "assets/images/projects/automation/workflow_1.png",
+                "tools": "n8n | SQL | Python",
+                "isConfidential": false,
+                "githubUrl": "https://github.com/KeerthikRaja70",
+                "problem": "Automation workflows using n8n to streamline data extraction, transformation, and automated email reporting using Excel sheet data.",
+                "questions": [
+                    "What problem was analyzed? Reducing manual reporting efforts."
+                ],
+                "findings": [
+                    "Saved 300+ hours of operational reporting through auto-triggers."
+                ],
+                "recommendations": [
+                    "Scale auto-email templates across other departments."
+                ]
+            },
+            {
+                "title": "Customer Support AI Agent",
+                "category": "AI Development",
+                "image": "assets/images/projects/automation/chatbot_agent_screenshot.jpg",
+                "tools": "Python | RAG | API",
+                "isConfidential": false,
+                "githubUrl": "https://github.com/KeerthikRaja70",
+                "problem": "RAG-based AI agent built using Python to handle intelligent customer support queries, contextual documentation retrieval, and response handling.",
+                "questions": [
+                    "What problem was analyzed? Providing instant, accurate replies based on product documentation databases."
+                ],
+                "findings": [
+                    "Achieved high relevance retrieval rates using semantic embeddings."
+                ],
+                "recommendations": [
+                    "Incorporate user feedback loops for fine-tuning embeddings."
+                ]
+            },
+            {
+                "title": "Securitisation Portfolio Analysis",
                 "category": "Banking Analytics",
                 "image": "assets/images/securitisation-dashboard.png",
                 "tools": "Power BI | DAX | Excel",
                 "isConfidential": true,
-                "githubUrl": "https://github.com/KeerthikRaja70/securitisation-portfolio-analysis",
-                "problem": "Built an interactive banking analytics dashboard to analyze loan portfolio performance, risk segmentation, and financial metrics.",
+                "githubUrl": "https://github.com/KeerthikRaja70",
+                "problem": "Cleaned and prepared a 6,000+ record dataset using SQL. Built interactive Power BI dashboards to analyze loan portfolio credit risk.",
                 "questions": [
-                    "What problem was analyzed? Loan portfolio health, default rates, and risk concentration across geographical sectors under bank underwriting schemas.",
-                    "What business questions were answered?",
-                    "1. How is the loan portfolio performing over time?",
-                    "2. How is credit risk distributed?",
-                    "3. What is the collection efficiency?"
+                    "What problem was analyzed? Loan portfolio health, default rates, and risk concentration."
                 ],
                 "findings": [
-                    "Identified default trends in vintage cohorts.",
-                    "Improved collection models to support bank transparency."
+                    "Delinquency hotspots were isolated to specific geographical divisions."
                 ],
                 "recommendations": [
-                    "Adjust risk weights based on vintage curve default limits."
-                ]
-            },
-            {
-                "title": "E-Commerce Sales Analysis Dashboard",
-                "category": "Retail Analytics",
-                "image": "assets/images/projects/ecommerce/dashboard_1.png",
-                "tools": "SQL | Power BI | Excel | DAX | Python",
-                "isConfidential": false,
-                "githubUrl": "https://github.com/KeerthikRaja70/ecommerce-sales-analysis",
-                "problem": "Analyze e-commerce sales performance, customer trends, product performance, and revenue patterns to generate actionable business insights.",
-                "questions": [
-                    "What problem was analyzed? Wrangling product review distributions, price bands, and brand revenues to maximize digital conversions.",
-                    "What business questions were answered?",
-                    "1. What is the revenue contribution of each brand?",
-                    "2. How do discount percentages correlate with product ratings?",
-                    "3. Which keywords appear most in product reviews?",
-                    "4. What is the price distribution across product categories?"
-                ],
-                "findings": [
-                    "Levis and U.S. Polo Assn. emerged as top revenue-generating brands.",
-                    "Discovered that rating distribution centers heavily on the 4-5 stars range.",
-                    "Fit issues were the most common keyword in low-satisfaction product reviews."
-                ],
-                "recommendations": [
-                    "Expand product lines for the top 5 premium brands.",
-                    "Implement size guides and interactive fit tools to address product review concerns.",
-                    "Adjust pricing margins for products with high discount elasticity."
-                ]
-            },
-            {
-                "title": "Retail Sales Analysis Dashboard",
-                "category": "Retail Analytics",
-                "image": "assets/images/projects/retail/project_1_1.png",
-                "tools": "SQL | Power BI | Excel | DAX",
-                "isConfidential": false,
-                "githubUrl": "https://github.com/KeerthikRaja70/retail-sales-analysis",
-                "problem": "Analyze retail sales performance, customer behavior, product trends, and revenue patterns to generate actionable business insights.",
-                "questions": [
-                    "What problem was analyzed? Optimizing store revenues and customer response metrics across product lines amid limited data constraints.",
-                    "What business questions were answered?",
-                    "1. Which products generate the highest revenue?",
-                    "2. Which categories have the best performance?",
-                    "3. What are the monthly sales trends?",
-                    "4. Which customers contribute the most revenue?",
-                    "5. Where are the opportunities for improvement?"
-                ],
-                "findings": [
-                    "Identified top-performing product categories.",
-                    "Found seasonal sales patterns and significant monthly drops.",
-                    "Analyzed customer purchasing behaviour and campaign response rate.",
-                    "Identified low-performing product segments."
-                ],
-                "recommendations": [
-                    "Focus marketing campaigns on high-performing categories.",
-                    "Optimize inventory planning based on monthly sales patterns.",
-                    "Improve customer retention strategies targeting high-value buyers.",
-                    "Create targeted promotions to revive low-performing segments."
+                    "Tighten credit underwriting standards for high-risk regions."
                 ]
             }
         ],
@@ -845,12 +948,14 @@ function getBackupProfile() {
             "Explored Generative AI tools for automation and problem solving"
         ],
         "skills": {
-            "SQL": 90,
-            "Power BI": 90,
-            "Excel": 85,
-            "Python": 75,
-            "Pandas": 70,
-            "DAX": 85
+            "SQL": 97,
+            "Power BI": 98,
+            "Python": 95,
+            "Excel": 96,
+            "DAX": 94,
+            "Data Analysis": 92,
+            "Statistics": 93,
+            "Problem Solving": 93
         },
         "techStack": {
             "Database": "PostgreSQL",
@@ -860,38 +965,131 @@ function getBackupProfile() {
             "Automation": "n8n, APIs"
         },
         "certifications": [
+
             {
                 "title": "Data Analytics Internship Certificate",
-                "issuer": "Tanusha Majumdar (Internship Mentor), Internship Studio",
+                "issuer": "Internship Studio",
                 "platform": "Internship Studio",
-                "completionDetails": "Completed: May 6th, 2026 to June 10th, 2026 (Certificate ID: ISDTAI3280639)",
+                "completionDetails": "Completed: Jun 2026",
                 "image": "assets/images/certificates/internship_studio_data_analytics.png",
-                "skillsGained": "SQL | Power BI | Excel | Data Analytics | Relational Modeling"
+                "skillsGained": "Retail sales analysis | Power BI reports | Power Query cleaning"
+            },
+            {
+                "title": "Python Using AI Workshop",
+                "issuer": "be10x",
+                "platform": "be10x Workshop",
+                "completionDetails": "Completed: 2024",
+                "image": "assets/images/certificates/python_using_ai_workshop.png",
+                "skillsGained": "Python scripting | AI prompt engineering | Productivity automations"
             },
             {
                 "title": "Python Data Structures",
-                "issuer": "Charles Severance (Clinical Professor, School of Information), University of Michigan",
+                "issuer": "University of Michigan",
                 "platform": "Coursera",
-                "completionDetails": "Completed: Feb 10, 2026 (Verify Code: HD7TKJQ2ZH1Z)",
+                "completionDetails": "Completed: 2023",
                 "image": "assets/images/certificates/Python Data Structures.png",
-                "skillsGained": "Lists, Dictionaries, Tuples | XML/JSON parsing | File handling & cleaning"
+                "skillsGained": "Lists, Dictionaries, Tuples | Custom data pipelines | File parsing"
             },
             {
-                "title": "Python using AI Workshop Certificate",
-                "issuer": "Aditya Kachave (AI For Techies)",
-                "platform": "AI For Techies",
-                "completionDetails": "Completed: May 10th, 2026",
-                "image": "assets/images/certificates/python_using_ai_workshop.png",
-                "skillsGained": "Interactive Python visualizations | AI-assisted code debugging & generation"
-            },
-            {
-                "title": "Power BI Data Analytics Certificate",
-                "issuer": "Internship Studio",
-                "platform": "Zatheta Algorithms & Internship Studio",
-                "completionDetails": "Completed: 2026",
-                "image": "assets/images/powerbi-cert.png",
-                "skillsGained": "DAX calculations | Relational modeling | Dashboard layouts"
+                "title": "Programming for Everybody (Python Basics)",
+                "issuer": "University of Michigan",
+                "platform": "Coursera",
+                "completionDetails": "Completed: 2023",
+                "image": "assets/images/certificates/Programming For Everybody.jpg",
+                "skillsGained": "Python basics | Variables & loops | Functions & control logic"
             }
         ]
     };
+}
+
+// 10. CERTIFICATE SECURITY (PREVENT DOWNLOADS & SCREENSHOTS)
+function setupCertificateSecurity() {
+    // 1. Block Keyboard Shortcuts (F12, DevTools, Ctrl+S, Ctrl+P, PrintScreen)
+    document.addEventListener("keydown", (e) => {
+        // Prevent F12
+        if (e.key === "F12") {
+            e.preventDefault();
+            return false;
+        }
+        // Prevent Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (inspect element)
+        if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C" || e.key === "i" || e.key === "j" || e.key === "c")) {
+            e.preventDefault();
+            return false;
+        }
+        // Prevent Ctrl+S (Save Page)
+        if (e.ctrlKey && (e.key === "S" || e.key === "s")) {
+            e.preventDefault();
+            return false;
+        }
+        // Prevent Ctrl+P (Print Page)
+        if (e.ctrlKey && (e.key === "P" || e.key === "p")) {
+            e.preventDefault();
+            return false;
+        }
+        // Prevent PrintScreen key
+        if (e.key === "PrintScreen" || e.keyCode === 44) {
+            e.preventDefault();
+            triggerCertificateBlur();
+            navigator.clipboard.writeText("Screenshot Protected");
+            return false;
+        }
+    });
+
+    document.addEventListener("keyup", (e) => {
+        if (e.key === "PrintScreen" || e.keyCode === 44) {
+            e.preventDefault();
+            triggerCertificateBlur();
+            navigator.clipboard.writeText("Screenshot Protected");
+            return false;
+        }
+    });
+
+    // Helper functions for focus defense
+    function triggerCertificateBlur() {
+        const certImg = document.getElementById("cert-lightbox-img");
+        if (certImg) certImg.style.filter = "blur(25px)";
+        
+        const modalContainer = document.querySelector(".cert-lightbox-container");
+        if (modalContainer) modalContainer.style.filter = "blur(15px)";
+        
+        const certCards = document.querySelectorAll(".certificate-card");
+        certCards.forEach(card => card.style.filter = "blur(20px)");
+    }
+
+    function removeCertificateBlur() {
+        const certImg = document.getElementById("cert-lightbox-img");
+        if (certImg) certImg.style.filter = "none";
+        
+        const modalContainer = document.querySelector(".cert-lightbox-container");
+        if (modalContainer) modalContainer.style.filter = "none";
+        
+        const certCards = document.querySelectorAll(".certificate-card");
+        certCards.forEach(card => card.style.filter = "none");
+    }
+
+    // 2. Snipping Tool defense: Blur certificate cards and preview modal when window loses focus
+    let isBlurred = false;
+
+    window.addEventListener("blur", () => {
+        triggerCertificateBlur();
+        isBlurred = true;
+    });
+
+    window.addEventListener("focus", () => {
+        // Do NOT unblur immediately to prevent Snipping Tool focus-regain bypass.
+        // We wait for the user to move the mouse or click inside the window.
+        isBlurred = false;
+    });
+
+    document.addEventListener("mousemove", () => {
+        if (!isBlurred) {
+            removeCertificateBlur();
+        }
+    });
+
+    document.addEventListener("click", () => {
+        if (!isBlurred) {
+            removeCertificateBlur();
+        }
+    });
 }
