@@ -1551,34 +1551,90 @@ section {
     gap: 10px;
 }
 
-.gauge-circle {
+.gauge-svg-wrap {
     width: 85px;
     height: 85px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-    transition: transform var(--transition-normal);
-}
-
-.gauge-circle:hover {
-    transform: scale(1.08);
-}
-
-.gauge-inner {
-    width: 65px;
-    height: 65px;
-    background-color: var(--bg-secondary);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    cursor: pointer;
+}
+
+.gauge-svg-circle {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.gauge-bg-circle {
+    fill: transparent;
+    stroke: rgba(255, 255, 255, 0.02);
+    stroke-width: 6.5px;
+}
+
+.gauge-fill-circle {
+    fill: transparent;
+    stroke-width: 6.5px;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.8s ease, stroke-width 0.3s ease, filter 0.3s ease !important;
+}
+
+.gauge-val-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.gauge-num {
     font-size: 1.05rem;
-    font-weight: 800;
+    font-weight: 900;
     color: var(--text-primary);
-    z-index: 2;
+    transition: color 0.3s ease, font-size 0.3s ease !important;
+}
+
+/* Hover highlights for skill gauges */
+.gauge-card:hover .gauge-svg-wrap,
+.gauge-card.interactive-highlight .gauge-svg-wrap {
+    transform: scale(1.08) !important;
+}
+
+.gauge-card:hover .gauge-fill-circle,
+.gauge-card.interactive-highlight .gauge-fill-circle {
+    stroke-width: 8px !important;
+}
+
+.gauge-card[data-gauge="pbi"]:hover .gauge-fill-circle,
+.gauge-card[data-gauge="pbi"].interactive-highlight .gauge-fill-circle {
+    filter: drop-shadow(0 0 5px var(--accent-blue)) !important;
+}
+
+.gauge-card[data-gauge="sql"]:hover .gauge-fill-circle,
+.gauge-card[data-gauge="sql"].interactive-highlight .gauge-fill-circle {
+    filter: drop-shadow(0 0 5px var(--accent-cyan)) !important;
+}
+
+.gauge-card[data-gauge="python"]:hover .gauge-fill-circle,
+.gauge-card[data-gauge="python"].interactive-highlight .gauge-fill-circle {
+    filter: drop-shadow(0 0 5px var(--accent-gold)) !important;
+}
+
+.gauge-card[data-gauge="excel"]:hover .gauge-fill-circle,
+.gauge-card[data-gauge="excel"].interactive-highlight .gauge-fill-circle {
+    filter: drop-shadow(0 0 5px var(--accent-green)) !important;
+}
+
+.gauge-card:hover .gauge-num,
+.gauge-card.interactive-highlight .gauge-num {
+    color: var(--text-primary) !important;
+    text-shadow: 0 0 8px currentColor;
 }
 
 .gauge-label {
@@ -1586,6 +1642,129 @@ section {
     font-weight: 700;
     color: var(--text-secondary);
     text-align: center;
+    transition: color 0.3s ease !important;
+}
+
+.gauge-card:hover .gauge-label,
+.gauge-card.interactive-highlight .gauge-label {
+    color: var(--text-primary) !important;
+}
+
+/* Skill badges nodes overrides and icons */
+.tech-icon-svg {
+    width: 14px !important;
+    height: 14px !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    flex-shrink: 0 !important;
+}
+
+.skill-badge-node {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    background-color: rgba(255, 255, 255, 0.01) !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 8px 14px !important;
+    border-radius: 6px !important;
+    color: var(--text-secondary) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    cursor: pointer !important;
+}
+
+.skill-badge-node:hover,
+.skill-badge-node.interactive-highlight {
+    transform: translateY(-3px) scale(1.03) !important;
+}
+
+.skill-badge-node[data-tech="pbi"]:hover,
+.skill-badge-node[data-tech="pbi"].interactive-highlight {
+    border-color: var(--accent-gold) !important;
+    box-shadow: 0 4px 15px rgba(242, 193, 46, 0.15) !important;
+    background: rgba(242, 193, 46, 0.04) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="sql"]:hover,
+.skill-badge-node[data-tech="sql"].interactive-highlight {
+    border-color: var(--accent-blue) !important;
+    box-shadow: 0 4px 15px rgba(0, 120, 212, 0.15) !important;
+    background: rgba(0, 120, 212, 0.04) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="python"]:hover,
+.skill-badge-node[data-tech="python"].interactive-highlight {
+    border-color: var(--accent-gold) !important;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15) !important;
+    background: rgba(212, 175, 55, 0.04) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="excel"]:hover,
+.skill-badge-node[data-tech="excel"].interactive-highlight {
+    border-color: var(--accent-green) !important;
+    box-shadow: 0 4px 15px rgba(16, 124, 65, 0.15) !important;
+    background: rgba(16, 124, 65, 0.04) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="pandas"]:hover {
+    border-color: #150458 !important;
+    box-shadow: 0 4px 15px rgba(21, 4, 88, 0.2) !important;
+    background: rgba(21, 4, 88, 0.05) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="numpy"]:hover {
+    border-color: #013243 !important;
+    box-shadow: 0 4px 15px rgba(1, 50, 67, 0.2) !important;
+    background: rgba(1, 50, 67, 0.05) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="dax"]:hover {
+    border-color: var(--accent-gold) !important;
+    box-shadow: 0 4px 15px rgba(242, 193, 46, 0.15) !important;
+    background: rgba(242, 193, 46, 0.04) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="postgres"]:hover {
+    border-color: #336791 !important;
+    box-shadow: 0 4px 15px rgba(51, 103, 145, 0.2) !important;
+    background: rgba(51, 103, 145, 0.05) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="git"]:hover {
+    border-color: #F05032 !important;
+    box-shadow: 0 4px 15px rgba(240, 80, 50, 0.2) !important;
+    background: rgba(240, 80, 50, 0.05) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="n8n"]:hover {
+    border-color: #FF6D5A !important;
+    box-shadow: 0 4px 15px rgba(255, 109, 90, 0.2) !important;
+    background: rgba(255, 109, 90, 0.05) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="apis"]:hover {
+    border-color: #2ECC71 !important;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2) !important;
+    background: rgba(46, 204, 113, 0.05) !important;
+    color: var(--text-primary) !important;
+}
+
+.skill-badge-node[data-tech="rag"]:hover {
+    border-color: #00F2FE !important;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2) !important;
+    background: rgba(0, 242, 254, 0.05) !important;
+    color: var(--text-primary) !important;
 }
 
 /* Dynamic Projects Dashboard Card styles */
@@ -2629,29 +2808,66 @@ a, h1, h2, h3, h4, h5, h6, .sidebar-link, .nav-link, .filter-tab, .btn {
     flex-wrap: wrap;
 }
 
-.exp-donut-chart {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: conic-gradient(
-        var(--accent-blue) 0% 45%, 
-        var(--accent-gold) 45% 80%, 
-        var(--accent-green) 80% 100%
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.exp-donut-chart-container {
+    width: 110px;
+    height: 110px;
     position: relative;
-    box-shadow: var(--shadow-main);
     flex-shrink: 0;
 }
 
-.donut-hole {
-    width: 60px;
-    height: 60px;
-    background-color: var(--bg-secondary);
-    border-radius: 50%;
-    z-index: 2;
+.donut-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.donut-segment {
+    transition: stroke-width 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.donut-svg:hover .donut-segment:not(:hover) {
+    opacity: 0.45;
+}
+
+.donut-segment:hover,
+.donut-segment.hovered {
+    stroke-width: 15;
+    opacity: 1 !important;
+}
+
+.donut-segment.segment-blue:hover,
+.donut-segment.segment-blue.hovered {
+    filter: drop-shadow(0 0 4px var(--accent-blue)) !important;
+}
+
+.donut-segment.segment-gold:hover,
+.donut-segment.segment-gold.hovered {
+    filter: drop-shadow(0 0 4px var(--accent-gold)) !important;
+}
+
+.donut-segment.segment-green:hover,
+.donut-segment.segment-green.hovered {
+    filter: drop-shadow(0 0 4px var(--accent-green)) !important;
+}
+
+.donut-center-hole {
+    fill: #080c16 !important;
+}
+
+.donut-center-val {
+    font-size: 0.8rem;
+    font-weight: 800;
+    fill: var(--text-primary);
+    transition: fill 0.3s ease;
+}
+
+.donut-center-lbl {
+    font-size: 0.52rem;
+    font-weight: 700;
+    fill: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .donut-legend {
@@ -2666,6 +2882,15 @@ a, h1, h2, h3, h4, h5, h6, .sidebar-link, .nav-link, .filter-tab, .btn {
     gap: 8px;
     font-size: 0.68rem;
     color: var(--text-secondary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.legend-item.highlighted {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-primary) !important;
 }
 
 .legend-dot {
@@ -2678,6 +2903,97 @@ a, h1, h2, h3, h4, h5, h6, .sidebar-link, .nav-link, .filter-tab, .btn {
 .legend-dot.bg-blue { background-color: var(--accent-blue); }
 .legend-dot.bg-gold { background-color: var(--accent-gold); }
 .legend-dot.bg-green { background-color: var(--accent-green); }
+
+/* Technology Distribution Interactive Bar Chart */
+.bar-chart-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0.35rem 0.6rem !important;
+    border-radius: var(--br-sm) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    cursor: pointer !important;
+}
+
+.bar-chart-row:hover {
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.bar-tech-label {
+    font-size: 0.68rem !important;
+    width: 60px !important;
+    color: var(--text-secondary) !important;
+    font-weight: 700 !important;
+    transition: color 0.3s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.bar-chart-row:hover .bar-tech-label {
+    color: var(--text-primary) !important;
+}
+
+.bar-track {
+    flex-grow: 1 !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    height: 8px !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.bar-track-fill {
+    height: 100% !important;
+    border-radius: 4px !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease !important;
+    transform-origin: left !important;
+}
+
+.bar-chart-row:hover .bar-track-fill {
+    transform: scaleY(1.3) !important;
+}
+
+.bar-tech-pct {
+    font-size: 0.68rem !important;
+    color: var(--text-muted) !important;
+    font-weight: 700 !important;
+    width: 25px !important;
+    text-align: right !important;
+    transition: color 0.3s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.bar-chart-row:hover .bar-tech-pct {
+    color: var(--text-primary) !important;
+}
+
+/* Linear Gradients for Technology Bars */
+.tech-bar-fill-pbi {
+    background: linear-gradient(90deg, #005a9e, var(--accent-blue)) !important;
+}
+.bar-chart-row[data-tech="pbi"]:hover .bar-track-fill {
+    filter: drop-shadow(0 0 4px var(--accent-blue)) !important;
+}
+
+.tech-bar-fill-sql {
+    background: linear-gradient(90deg, #0078d4, var(--accent-cyan)) !important;
+}
+.bar-chart-row[data-tech="sql"]:hover .bar-track-fill {
+    filter: drop-shadow(0 0 4px var(--accent-cyan)) !important;
+}
+
+.tech-bar-fill-python {
+    background: linear-gradient(90deg, #b8860b, var(--accent-gold)) !important;
+}
+.bar-chart-row[data-tech="python"]:hover .bar-track-fill {
+    filter: drop-shadow(0 0 4px var(--accent-gold)) !important;
+}
+
+.tech-bar-fill-excel {
+    background: linear-gradient(90deg, #107c41, var(--accent-green)) !important;
+}
+.bar-chart-row[data-tech="excel"]:hover .bar-track-fill {
+    filter: drop-shadow(0 0 4px var(--accent-green)) !important;
+}
 
 .exp-kpi-summary-cards {
     display: flex;
@@ -3367,6 +3683,248 @@ section {
     #ai-projects-container {
         grid-template-columns: 1fr !important;
     }
+}
+
+/* Executive Profile Dashboard Refinements */
+.hero-profile-card {
+    align-items: stretch !important;
+    gap: 1.5rem !important;
+}
+
+.hero-left-col {
+    width: 170px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+}
+
+.hero-right-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.6rem !important;
+    flex-grow: 1 !important;
+    justify-content: space-between !important;
+}
+
+.profile-summary-widget {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: var(--br-sm) !important;
+    padding: 0.6rem 0.8rem !important;
+}
+
+.profile-summary-widget .summary-text {
+    font-size: 0.68rem !important;
+    color: var(--text-secondary) !important;
+    line-height: 1.45 !important;
+    margin: 0 !important;
+}
+
+.profile-stats-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.4rem !important;
+}
+
+.profile-stats-grid .stat-item {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-radius: var(--br-sm) !important;
+    padding: 0.35rem 0.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+}
+
+.profile-stats-grid .stat-lbl {
+    font-size: 0.52rem !important;
+    color: var(--text-muted) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+.profile-stats-grid .stat-val {
+    font-size: 0.68rem !important;
+    color: var(--text-primary) !important;
+    font-weight: 800 !important;
+}
+
+.profile-skills-widget {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.3rem !important;
+    max-width: 155px !important;
+    margin: 0.3rem auto !important;
+}
+
+.profile-skills-widget .widget-heading {
+    font-size: 0.52rem !important;
+    color: var(--text-muted) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.profile-skill-chips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+}
+
+.profile-skill-chips .profile-chip {
+    font-size: 0.55rem !important;
+    padding: 2px 5px !important;
+    border-radius: 4px !important;
+    font-weight: 700 !important;
+    border: none !important;
+}
+
+/* Fabric-inspired soft color pattern */
+.profile-skill-chips .profile-chip.bg-pbi {
+    background: rgba(242, 193, 46, 0.12) !important;
+    color: var(--accent-gold) !important;
+}
+.profile-skill-chips .profile-chip.bg-sql {
+    background: rgba(0, 120, 212, 0.12) !important;
+    color: var(--accent-blue) !important;
+}
+.profile-skill-chips .profile-chip.bg-python {
+    background: rgba(0, 242, 254, 0.12) !important;
+    color: var(--accent-cyan) !important;
+}
+.profile-skill-chips .profile-chip.bg-excel {
+    background: rgba(16, 124, 65, 0.12) !important;
+    color: var(--accent-green) !important;
+}
+.profile-skill-chips .profile-chip.bg-dax {
+    background: rgba(155, 89, 182, 0.12) !important;
+    color: #c39bd3 !important;
+}
+.profile-skill-chips .profile-chip.bg-pq {
+    background: rgba(230, 126, 34, 0.12) !important;
+    color: #e67e22 !important;
+}
+
+/* Premium Quote Card */
+.premium-quote-card {
+    background: rgba(0, 120, 212, 0.04) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(0, 120, 212, 0.12) !important;
+    border-left: 4px solid var(--accent-cyan) !important;
+    border-radius: var(--br-sm) !important;
+    padding: 0.75rem 1rem !important;
+    width: 100% !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.18) !important;
+    transition: all 0.3s ease !important;
+}
+
+.premium-quote-card .quote-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 0.3rem !important;
+}
+
+.premium-quote-card .quote-icon {
+    font-size: 0.72rem !important;
+}
+
+.premium-quote-card .quote-title {
+    font-size: 0.58rem !important;
+    color: var(--accent-cyan) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+}
+
+.premium-quote-card .quote-content {
+    font-size: 0.78rem !important;
+    font-style: italic !important;
+    color: var(--text-primary) !important;
+    line-height: 1.45 !important;
+    margin: 0 !important;
+    text-align: left !important;
+    font-weight: 500 !important;
+}
+
+/* Center alignment overrides for left column elements */
+.hero-name-left {
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    text-align: center !important;
+    margin-top: 0.4rem !important;
+    margin-bottom: 0.2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+}
+
+.left-aligned-badges {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    margin-bottom: 0.4rem !important;
+}
+
+.left-aligned-badges .role-badge {
+    font-size: 0.52rem !important;
+    padding: 2px 5px !important;
+}
+
+.hero-left-col .profile-skill-chips {
+    justify-content: center !important;
+}
+
+.hero-left-col .widget-heading {
+    text-align: center !important;
+}
+
+/* Professional Highlights Widget styling */
+.profile-highlights-widget {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.35rem !important;
+    width: 100% !important;
+    padding: 0.5rem 0.65rem !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-radius: var(--br-sm) !important;
+}
+
+.profile-highlights-widget .widget-heading {
+    font-size: 0.52rem !important;
+    color: var(--text-muted) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-align: center !important;
+    margin-bottom: 0.1rem !important;
+}
+
+.highlight-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+.highlight-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 0.64rem !important;
+    color: var(--text-secondary) !important;
+    font-weight: 600 !important;
+}
+
+.highlight-item i {
+    font-size: 0.68rem !important;
 }
 
 

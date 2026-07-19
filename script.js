@@ -177,6 +177,7 @@ function initializePortfolioContent() {
     renderCertifications();
     setupModals();
     setupAIAssistant();
+    setupInteractiveCharts();
 }
 
 // 4. ANIMATE KPI TICKERS & SKILLS PROGRESS
@@ -218,6 +219,112 @@ function setupSkillsAnimation() {
     }, { threshold: 0.1 });
     
     progressSpans.forEach(span => observer.observe(span));
+}
+
+function setupInteractiveCharts() {
+    const segments = document.querySelectorAll(".donut-segment");
+    const legendItems = document.querySelectorAll(".legend-item");
+    const valText = document.querySelector(".donut-center-val");
+    const lblText = document.querySelector(".donut-center-lbl");
+    
+    if (!valText || !lblText) return;
+    
+    const originalVal = "Data";
+    const originalLbl = "Analyst";
+    
+    const segmentMap = {
+        "blue": { pct: "45%", lbl: "Analytics", class: "segment-blue" },
+        "gold": { pct: "35%", lbl: "Industrial", class: "segment-gold" },
+        "green": { pct: "20%", lbl: "Electrical", class: "segment-green" }
+    };
+    
+    const updateCenter = (pct, label) => {
+        valText.textContent = pct;
+        lblText.textContent = label;
+        valText.style.fill = "var(--accent-cyan)";
+    };
+    
+    const resetCenter = () => {
+        valText.textContent = originalVal;
+        lblText.textContent = originalLbl;
+        valText.style.fill = "var(--text-primary)";
+    };
+    
+    segments.forEach(seg => {
+        seg.addEventListener("mouseenter", () => {
+            const pct = seg.getAttribute("data-pct");
+            const lbl = seg.getAttribute("data-lbl");
+            updateCenter(pct, lbl);
+            
+            let color = "blue";
+            if (seg.classList.contains("segment-gold")) color = "gold";
+            else if (seg.classList.contains("segment-green")) color = "green";
+            
+            legendItems.forEach(item => {
+                if (item.getAttribute("data-segment") === color) {
+                    item.classList.add("highlighted");
+                }
+            });
+        });
+        
+        seg.addEventListener("mouseleave", () => {
+            resetCenter();
+            legendItems.forEach(item => item.classList.remove("highlighted"));
+        });
+    });
+    
+    legendItems.forEach(item => {
+        item.addEventListener("mouseenter", () => {
+            const segColor = item.getAttribute("data-segment");
+            const data = segmentMap[segColor];
+            if (data) {
+                updateCenter(data.pct, data.lbl);
+                
+                segments.forEach(seg => {
+                    if (seg.classList.contains(data.class)) {
+                        seg.classList.add("hovered");
+                    }
+                });
+            }
+        });
+        
+        item.addEventListener("mouseleave", () => {
+            resetCenter();
+            segments.forEach(seg => seg.classList.remove("hovered"));
+        });
+    });
+
+    // Interactivity between Skill Badges and Proficiency Gauges
+    const badgeNodes = document.querySelectorAll(".skill-badge-node");
+    const gaugeCards = document.querySelectorAll(".gauge-card");
+    
+    badgeNodes.forEach(badge => {
+        badge.addEventListener("mouseenter", () => {
+            const tech = badge.getAttribute("data-tech");
+            gaugeCards.forEach(gauge => {
+                if (gauge.getAttribute("data-gauge") === tech) {
+                    gauge.classList.add("interactive-highlight");
+                }
+            });
+        });
+        badge.addEventListener("mouseleave", () => {
+            gaugeCards.forEach(gauge => gauge.classList.remove("interactive-highlight"));
+        });
+    });
+    
+    gaugeCards.forEach(gauge => {
+        gauge.addEventListener("mouseenter", () => {
+            const tech = gauge.getAttribute("data-gauge");
+            badgeNodes.forEach(badge => {
+                if (badge.getAttribute("data-tech") === tech) {
+                    badge.classList.add("interactive-highlight");
+                }
+            });
+        });
+        gauge.addEventListener("mouseleave", () => {
+            badgeNodes.forEach(badge => badge.classList.remove("interactive-highlight"));
+        });
+    });
 }
 
 // 5. RENDERING DYNAMIC PORTFOLIO NODES
@@ -961,8 +1068,6 @@ function getBackupProfile() {
             }
         ],
         "aiAchievements": [
-            "Built AI-powered automation workflows using n8n",
-            "Developed RAG-based Customer Support AI Agent",
             "Integrated AI APIs into practical applications",
             "Built AI-assisted productivity solutions",
             "Explored Generative AI tools for automation and problem solving"
