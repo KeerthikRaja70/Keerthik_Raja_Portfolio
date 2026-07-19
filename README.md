@@ -110,15 +110,15 @@ Responsible for process improvement, production analysis, reporting, and operati
 
 Visit my portfolio:
 
-**Coming Soon**
+https://keerthikraja70.github.io/Keerthik_Raja_Portfolio/
 
 ---
 
 # 📫 Connect With Me
 
-- LinkedIn: *(Add your LinkedIn URL)*
+- LinkedIn: https://linkedin.com/in/keerthik-raja70
 - GitHub: https://github.com/YourUsername
-- Email: *(Add your Email)*
+- Email: keerthikbharath29@gmail.com
 
 ---
 
