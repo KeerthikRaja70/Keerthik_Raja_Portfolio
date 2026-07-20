@@ -4090,4 +4090,130 @@ section {
     letter-spacing: 0.3px !important;
 }
 
+/* Skill Telemetry Matrix Styles */
+.skills-telemetry-matrix {
+    margin-top: 1.5rem !important;
+    background: rgba(255, 255, 255, 0.01) !important;
+    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+    border-radius: var(--br-md) !important;
+    padding: 1rem !important;
+}
+
+.matrix-heading {
+    font-size: 0.68rem !important;
+    color: var(--text-secondary) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    margin-bottom: 0.8rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+    padding-bottom: 0.4rem !important;
+    text-align: left !important;
+}
+
+.matrix-table-wrapper {
+    overflow-x: auto !important;
+}
+
+.matrix-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 0.68rem !important;
+    text-align: left !important;
+}
+
+.matrix-table th {
+    color: var(--text-muted) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    padding: 0.5rem 0.6rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.matrix-table td {
+    padding: 0.6rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+    color: var(--text-secondary) !important;
+}
+
+.matrix-table tr:last-child td {
+    border-bottom: none !important;
+}
+
+.matrix-table tr:hover td {
+    background: rgba(0, 120, 212, 0.03) !important;
+    color: var(--text-primary) !important;
+    transition: all 0.2s ease !important;
+}
+
+.matrix-tech-cell {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+}
+
+.tech-icon-svg.mini {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+.matrix-project-badge {
+    font-size: 0.58rem !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    font-weight: 700 !important;
+    display: inline-block !important;
+}
+
+.matrix-project-badge.pbi {
+    background: rgba(242, 193, 46, 0.1) !important;
+    color: var(--accent-gold) !important;
+    border: 1px solid rgba(242, 193, 46, 0.2) !important;
+}
+
+.matrix-project-badge.sql {
+    background: rgba(0, 120, 212, 0.1) !important;
+    color: var(--accent-blue) !important;
+    border: 1px solid rgba(0, 120, 212, 0.2) !important;
+}
+
+.matrix-project-badge.python {
+    background: rgba(0, 242, 254, 0.1) !important;
+    color: var(--accent-cyan) !important;
+    border: 1px solid rgba(0, 242, 254, 0.2) !important;
+}
+
+.matrix-project-badge.excel {
+    background: rgba(16, 124, 65, 0.1) !important;
+    color: var(--accent-green) !important;
+    border: 1px solid rgba(16, 124, 65, 0.2) !important;
+}
+
+.matrix-project-badge.n8n {
+    background: rgba(255, 109, 90, 0.1) !important;
+    color: #FF6D5A !important;
+    border: 1px solid rgba(255, 109, 90, 0.2) !important;
+}
+
+.matrix-status {
+    font-size: 0.55rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.matrix-status.active {
+    color: var(--accent-cyan) !important;
+}
+
+.matrix-status.intermediate {
+    color: var(--text-muted) !important;
+}
+
 
