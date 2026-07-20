@@ -351,12 +351,32 @@ function renderExperienceTimeline() {
                 </li>
             `;
         });
+
+        // Define relevant skills & tools tags for the career timeline
+        let toolsTags = [];
+        if (exp.company.includes("Jay Jay")) {
+            toolsTags = ["Excel", "Variance Analysis", "Forecasting", "Process Optimization"];
+        } else if (exp.company.includes("Internship")) {
+            toolsTags = ["Power BI", "SQL", "DAX", "Power Query", "Retail Sales Analytics"];
+        } else {
+            toolsTags = ["Troubleshooting", "Problem Solving", "Safety Standards"];
+        }
+        
+        let tagsHtml = `<div class="timeline-tags-row">`;
+        toolsTags.forEach(tag => {
+            tagsHtml += `<span class="timeline-skill-tag">${tag}</span>`;
+        });
+        tagsHtml += `</div>`;
+        
+        // Generate initials logo
+        const initials = exp.company.split(',')[0].trim().split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
         
         node.innerHTML = `
             <div class="timeline-badge-icon ${badgeColor}"><i class="bx ${badgeIcon}"></i></div>
             <div class="timeline-card">
                 <div class="timeline-card-header">
-                    <div>
+                    <div class="company-logo-frame">${initials}</div>
+                    <div style="flex-grow: 1; text-align: left;">
                         <h3 class="timeline-role-name">${exp.role}</h3>
                         <span class="timeline-company-name">${exp.company}</span>
                     </div>
@@ -365,6 +385,7 @@ function renderExperienceTimeline() {
                 <ul class="timeline-bullets-list">
                     ${highlightsHtml}
                 </ul>
+                ${tagsHtml}
             </div>
         `;
         timeline.appendChild(node);
@@ -919,28 +940,32 @@ function appendBotMessage(text, chatBodyId) {
 function getLocalFallback(query) {
     const q = query.toLowerCase();
     
-    if (q.includes("who is") || q.includes("summary") || q.includes("about keerthik")) {
-        return `Keerthik Raja is a Data Analyst with an Industrial Engineering background. He is experienced in SQL, Power BI, Python, and Excel. You can email him at [Email](mailto:keerthikbharath29@gmail.com).`;
+    if (q.includes("experience") && !q.includes("intelligence")) {
+        return `Keerthik Raja has hands-on experience as an Industrial Engineer at Jay Jay Mills (building Excel variance forecasts that reduced shortfalls by 12%) and as a Data Analyst Intern at Internship Studio (building custom interactive dashboards).`;
     }
-    if (q.includes("why hire") || q.includes("different") || q.includes("recommend")) {
-        return `Keerthik brings a strong operations-optimization background from Industrial Engineering. He has built capacity variance forecasting models that closed 12% output gaps and automates audits using lookup matrices.`;
+    if (q.includes("power bi") || q.includes("dashboards")) {
+        return `Keerthik has built advanced, multi-page dashboards in Power BI. Key projects include a Retail Sales Analysis Dashboard and an E-Commerce Sales Analysis Dashboard, leveraging star schemas, Power Query ETL, and dynamic DAX metrics.`;
     }
-    if (q.includes("power bi") || q.includes("dax") || q.includes("dashboard")) {
-        return `Keerthik is highly proficient in Power BI, Advanced DAX, and relational modeling. He has built a Retail Sales Analysis dashboard and a comprehensive E-Commerce Sales dashboard.`;
+    if (q.includes("retail sales")) {
+        return `The Retail Sales Analysis Dashboard is a 2-page interactive Power BI dashboard tracking store revenues, seasonal sales patterns, customer response rates, and category growth. Cleaned with SQL and styled with custom indicators.`;
     }
-    if (q.includes("sql") || q.includes("database")) {
-        return `Keerthik is skilled in SQL. He uses Joins, CTEs, subqueries, and table normalization to process and clean large transactional datasets.`;
+    if (q.includes("tools") || q.includes("skills")) {
+        return `Keerthik's technical stack includes Power BI, SQL (PostgreSQL), Python (Pandas, NumPy), Excel (VLOOKUP, XLOOKUP, Pivot Tables), Advanced DAX, Git, n8n automation, APIs, and RAG architectures.`;
     }
-    if (q.includes("python") || q.includes("pandas") || q.includes("numpy")) {
-        return `Keerthik uses Python for EDA and data cleaning, relying on Pandas and NumPy. He is certified in Python Data Structures by the University of Michigan.`;
+    if (q.includes("resume") || q.includes("cv") || q.includes("download")) {
+        // Automatically try to open resume in a new tab if supported
+        setTimeout(() => {
+            window.open("https://github.com/KeerthikRaja70", "_blank");
+        }, 1000);
+        return `I have opened Keerthik's profile for you. You can download his resume directly here: [Keerthik's LinkedIn Portfolio](https://linkedin.com/in/keerthik-raja70) or reach out directly to keerthikbharath29@gmail.com!`;
     }
-    if (q.includes("automation") || q.includes("n8n")) {
-        return `Keerthik built an AI Job Application Automation Workflow using n8n and AI APIs, automating job search, email pitches, and resume matching logs.`;
+    if (q.includes("intelligence")) {
+        return `Keerthik's BI experience covers data modeling, relational star schemas, advanced DAX calculated columns/measures, clean visual hierarchy, and automated dashboard telemetry updates.`;
     }
-    if (q.includes("contact") || q.includes("scheduling") || q.includes("email")) {
-        return `You can reach Keerthik Raja directly via phone (+91 86103 73797) or email (keerthikbharath29@gmail.com). You can also use the contact dashboard below to submit a ticket!`;
+    if (q.includes("goal") || q.includes("career")) {
+        return `Keerthik aims to leverage his backend analytical skills and process-engineering mindset to solve complex commercial problems as a Data Analyst / BI Engineer.`;
     }
-    return `Keerthik Raja is a Data Analyst specializing in Power BI dashboard development, SQL database wrangling, Excel forecasters, and n8n automations. For details, submit a contact ticket or reach him at +91 86103 73797.`;
+    return `Keerthik Raja is a Data Analyst specializing in Power BI, SQL, Python, Excel, and Automation. For more details, select one of the suggested prompts or email keerthikbharath29@gmail.com!`;
 }
 
 // 9. LOCAL BACKUP PROFILE DATA (FAILSAFE FALLBACK)
