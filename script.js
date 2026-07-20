@@ -354,10 +354,12 @@ function renderExperienceTimeline() {
 
         // Define relevant skills & tools tags for the career timeline
         let toolsTags = [];
-        if (exp.company.includes("Jay Jay")) {
+        if (exp.company.toLowerCase().includes("jay jay")) {
             toolsTags = ["Excel", "Variance Analysis", "Forecasting", "Process Optimization"];
-        } else if (exp.company.includes("Internship")) {
+        } else if (exp.company.toLowerCase().includes("internship")) {
             toolsTags = ["Power BI", "SQL", "DAX", "Power Query", "Retail Sales Analytics"];
+        } else if (exp.company.toLowerCase().includes("zatheta")) {
+            toolsTags = ["Power BI", "SQL", "DAX", "Power Query", "Securitisation Portfolio Analysis"];
         } else {
             toolsTags = ["Troubleshooting", "Problem Solving", "Safety Standards"];
         }
@@ -393,70 +395,7 @@ function renderExperienceTimeline() {
 }
 
 function renderAIAchievements() {
-    const aiProjectsContainer = document.getElementById("ai-projects-container");
-    const container = document.getElementById("ai-achievements-container");
-    
-    // Render AI & Automation projects in achievements grid
-    if (aiProjectsContainer) {
-        aiProjectsContainer.innerHTML = "";
-        const aiProjects = profileData.projects.filter(p => p.category === "Automation" || p.category === "AI Development");
-        
-        aiProjects.forEach((proj) => {
-            const index = profileData.projects.findIndex(p => p.title === proj.title);
-            const card = document.createElement("div");
-            card.className = "project-card-dashboard";
-            
-            card.innerHTML = `
-                <div class="project-card-img-wrap">
-                    <img src="${proj.image}" alt="${proj.title}" loading="lazy">
-                </div>
-                <div class="project-card-content">
-                    <div class="project-card-hdr">
-                        <span class="project-category">${proj.category}</span>
-                    </div>
-                    <h3 class="project-title-dash">${proj.title}</h3>
-                    <p class="project-problem-text">${proj.problem}</p>
-                    <div class="project-tools-used">
-                        Tools: ${proj.tools.split(" | ").map(t => `<span>${t}</span>`).join("")}
-                    </div>
-                    <div class="project-links-row">
-                        <button class="btn btn-primary btn-solution-trigger">Business Solution</button>
-                        <a href="${proj.githubUrl}" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View GitHub</a>
-                    </div>
-                </div>
-            `;
-            
-            card.querySelector(".btn-solution-trigger").addEventListener("click", () => {
-                openSolutionLightbox(index);
-            });
-            
-            aiProjectsContainer.appendChild(card);
-        });
-    }
-    
-    // Render text highlights
-    if (container) {
-        container.innerHTML = "";
-        const icons = [
-            "bx-cog",
-            "bx-support",
-            "bx-plug",
-            "bx-rocket",
-            "bx-brain"
-        ];
-        
-        profileData.aiAchievements.forEach((ach, index) => {
-            const card = document.createElement("div");
-            card.className = "ai-achievement-card";
-            const iconClass = icons[index % icons.length];
-            
-            card.innerHTML = `
-                <div class="ai-ach-icon"><i class="bx ${iconClass}"></i></div>
-                <div class="ai-ach-text">${ach}</div>
-            `;
-            container.appendChild(card);
-        });
-    }
+    // Redesigned to be rendered statically in index.html for high-fidelity SaaS layout.
 }
 
 function renderProjectsGrid() {
@@ -538,9 +477,27 @@ function renderProjectsGrid() {
                 <div class="project-tools-used" style="margin-bottom:0.8rem; margin-top:0px;">
                     Tools: ${proj.tools.split(" | ").map(t => `<span>${t}</span>`).join("")}
                 </div>
-                <div class="project-links-row" style="margin-top:0px;">
-                    <button class="btn btn-primary btn-solution-trigger">Business Solution</button>
-                    <a href="${proj.githubUrl}" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View GitHub</a>
+                <div class="project-links-row" style="margin-top:0px; display:flex; gap:0.5rem; flex-wrap:wrap; width:100%;">
+                    <button class="btn btn-primary btn-solution-trigger" style="flex: 1; min-width: 120px;">Business Solution</button>
+                    <a href="${proj.githubUrl}" target="_blank" class="btn btn-secondary" style="flex: 1; min-width: 120px;"><i class="fab fa-github"></i> View GitHub</a>
+                    ${proj.pbixUrl ? `<a href="${proj.pbixUrl}" download class="btn btn-pbix" style="flex: 1; min-width: 120px;"><i class="bx bx-download"></i> Download PBIX</a>` : ''}
+                </div>
+                
+                <!-- Interactive Dashboard Info Card -->
+                <div class="pbi-info-card">
+                    <div class="pbi-info-header">
+                        <svg class="tech-icon-svg mini" viewBox="0 0 24 24" style="width: 12px; height: 12px; fill: var(--accent-gold); display: inline-block; vertical-align: middle;"><path d="M9 6h3v14H9zm5-3h3v17h-3zM4 11h3v9H4z"/></svg>
+                        <span style="font-weight: 700; text-transform: uppercase; font-size: 0.62rem; letter-spacing: 0.5px;">Interactive Power BI Dashboard</span>
+                    </div>
+                    <p class="pbi-info-desc">Open this project using Microsoft Power BI Desktop to experience the complete interactive dashboard.</p>
+                    <div class="pbi-features-grid">
+                        <span class="pbi-feature-item"><i class="bx bx-check text-cyan"></i> Interactive Filters</span>
+                        <span class="pbi-feature-item"><i class="bx bx-check text-cyan"></i> Slicers</span>
+                        <span class="pbi-feature-item"><i class="bx bx-check text-cyan"></i> Drill-through Pages</span>
+                        <span class="pbi-feature-item"><i class="bx bx-check text-cyan"></i> Bookmarks</span>
+                        <span class="pbi-feature-item"><i class="bx bx-check text-cyan"></i> Dynamic DAX Measures</span>
+                        <span class="pbi-feature-item"><i class="bx bx-check text-cyan"></i> Responsive Visualizations</span>
+                    </div>
                 </div>
             </div>
         `;
@@ -649,26 +606,61 @@ function openSolutionLightbox(index) {
     document.getElementById("solution-modal-category").textContent = proj.category;
     document.getElementById("solution-github-link").href = proj.githubUrl;
     
+    // Populate Business Problem
+    const problemText = document.getElementById("solution-problem-text");
+    if (problemText) {
+        problemText.textContent = proj.problem || "No problem statement defined.";
+    }
+    
     // Populate Business Questions
     const questionsList = document.getElementById("solution-questions-list");
     questionsList.innerHTML = "";
-    proj.questions.forEach(q => {
-        questionsList.innerHTML += `<li>${q}</li>`;
-    });
+    if (proj.questions) {
+        proj.questions.forEach(q => {
+            questionsList.innerHTML += `<li>${q}</li>`;
+        });
+    }
     
     // Populate Data Findings
     const findingsList = document.getElementById("solution-findings-list");
     findingsList.innerHTML = "";
-    proj.findings.forEach(f => {
-        findingsList.innerHTML += `<li>${f}</li>`;
-    });
+    if (proj.findings) {
+        proj.findings.forEach(f => {
+            // Support strong bold formatting for findings headers
+            const formatted = f.replace(/\*\*([^*]+)\*\:/g, '<strong>$1:</strong>');
+            findingsList.innerHTML += `<li>${formatted}</li>`;
+        });
+    }
     
     // Populate Business Recommendations
-    const recsList = document.getElementById("solution-recommendations-list");
-    recsList.innerHTML = "";
-    proj.recommendations.forEach(r => {
-        recsList.innerHTML += `<li>${r}</li>`;
-    });
+    const recommendationsList = document.getElementById("solution-recommendations-list");
+    recommendationsList.innerHTML = "";
+    if (proj.recommendations) {
+        proj.recommendations.forEach(r => {
+            const formatted = r.replace(/\*\*([^*]+)\*\:/g, '<strong>$1:</strong>');
+            recommendationsList.innerHTML += `<li>${formatted}</li>`;
+        });
+    }
+    
+    // Populate Business Impact
+    const impactList = document.getElementById("solution-impact-list");
+    impactList.innerHTML = "";
+    if (proj.impact) {
+        proj.impact.forEach(i => {
+            impactList.innerHTML += `<li>${i}</li>`;
+        });
+    } else {
+        impactList.innerHTML += `<li>No specific impact stats defined.</li>`;
+    }
+    
+    // Populate Tools List
+    const toolsList = document.getElementById("solution-tools-list");
+    toolsList.innerHTML = "";
+    if (proj.tools) {
+        proj.tools.split(" | ").forEach(t => {
+            toolsList.innerHTML += `<span class="timeline-skill-tag" style="background: rgba(0, 120, 212, 0.08); border-color: rgba(0, 120, 212, 0.2);">${t}</span>`;
+        });
+    }
     
     // Populate visuals section
     const visualsSection = document.getElementById("solution-visuals-section");
@@ -995,6 +987,18 @@ function getBackupProfile() {
             },
             {
                 "role": "Data Analyst Intern",
+                "company": "Zatheta Algorithms Private Limited",
+                "period": "May 2026 – Jun 2026",
+                "highlights": [
+                    "Built a 6-page interactive Power BI dashboard for securitisation portfolio analysis, covering Credit Risk Analysis, Recovery Analysis, Collateral Analysis, and Vintage Performance.",
+                    "Designed reporting views and KPI summaries that helped users monitor performance, identify trends, and evaluate portfolio behavior more effectively.",
+                    "Used Power BI, Power Query, DAX, SQL, and Excel to clean data, model metrics, and present insights in a user-friendly format for business stakeholders.",
+                    "Supported data-driven decision-making by organizing complex data into clear dashboards, structured reports, and actionable analytical outputs.",
+                    "Demonstrated the ability to work independently on analytics deliverables while maintaining quality and documentation standards."
+                ]
+            },
+            {
+                "role": "Data Analyst Intern",
                 "company": "Internship Studio",
                 "period": "May 2026 – Jun 2026",
                 "highlights": [
@@ -1005,7 +1009,7 @@ function getBackupProfile() {
             {
                 "role": "Electrician",
                 "company": "Nile Controllers",
-                "period": "Jun 2021 – Dec 2022",
+                "period": "Aug 2024 – Feb 2025",
                 "highlights": [
                     "Technical troubleshooting and electrical controls maintenance.",
                     "Equipment installation and operational problem solving."
@@ -1017,42 +1021,76 @@ function getBackupProfile() {
                 "title": "Retail Sales Analysis Dashboard",
                 "category": "Retail Analytics",
                 "image": "assets/images/projects/retail/project_1_1.png",
-                "tools": "Power BI | SQL | DAX",
+                "tools": "Power BI | Power Query | DAX | Excel | Data Visualization",
                 "isConfidential": false,
-                "githubUrl": "https://github.com/KeerthikRaja70/retail-sales-analysis",
-                "problem": "Comprehensive sales analysis to track performance, identify seasonal sales patterns, and uncover buying trends in Power BI to evaluate campaign response rates.",
+                "githubUrl": "https://github.com/KeerthikRaja70/KeerthikProjectHub",
+                "pbixUrl": "https://github.com/KeerthikRaja70/KeerthikProjectHub/raw/main/Retail_Sales_Analysis/Retail_Sales_Analysis%20Project.pbix",
+                "problem": "The retail company was collecting large amounts of customer and transaction data but lacked a centralized reporting system to understand customer behavior, response effectiveness, sales trends, and revenue performance. The goal was to transform raw retail data into actionable insights to improve customer targeting, increase revenue, and support data-driven decision-making.",
                 "questions": [
-                    "What problem was analyzed? Optimizing store revenues and customer response metrics across product lines.",
-                    "What business questions were answered?",
-                    "1. Which product categories generate the highest revenue?",
-                    "2. What are the monthly sales trends?"
+                    "What factors influence customer responses and transaction values?",
+                    "Which customer segments generate the highest revenue?",
+                    "How have sales and customer activity changed over time?",
+                    "Are marketing responses translating into better customer engagement and revenue?",
+                    "Which customers contribute the most to overall revenue?"
                 ],
                 "findings": [
-                    "Identified top-performing product categories.",
-                    "Found seasonal sales patterns and monthly sales variances."
+                    "**Customer Response Impact:** Customers who responded positively generated significantly higher transaction amounts than non-responders. The positive response rate remained relatively low compared to negative responses, indicating untapped marketing potential.",
+                    "**Revenue Analysis:** Total revenue reached approximately 8M, generated from around 125K customers. Average transaction value was around 65, showing stable customer spending patterns. Revenue remained strong from 2012–2014 but declined sharply in 2015, signaling a possible drop in customer engagement or sales activity.",
+                    "**Customer Segmentation:** Medium-spending customers represented the largest customer segment and contributed the highest revenue share. High-spending customers were fewer in number, suggesting opportunities for premium retention strategies. Low-spending customers contributed less revenue and may require cost-effective engagement approaches.",
+                    "**Sales & Trend Analysis:** Monthly transaction trends showed fluctuations with a noticeable dip during certain months, indicating seasonality in customer purchasing behavior. Active customers remained stable for multiple years before a significant decline in the latest period. Month-over-Month growth showed a decrease of approximately 41%, highlighting an immediate area of concern.",
+                    "**Customer Contribution:** A small group of customers generated a disproportionately high amount of revenue, following a Pareto (80/20) pattern. Top customers consistently contributed a significant portion of total revenue and should be prioritized."
                 ],
                 "recommendations": [
-                    "Align marketing campaigns with high-performing product categories.",
-                    "Optimize inventory planning matching seasonal sales patterns."
+                    "**Improve Marketing Campaign Effectiveness:** Focus marketing efforts on customer segments with higher response rates. Implement personalized promotions to increase customer engagement. Conduct A/B testing on campaigns to improve response conversion rates.",
+                    "**Strengthen High-Value Customer Retention:** Introduce loyalty programs for high-spending customers. Offer exclusive rewards, early access, and personalized recommendations. Develop targeted retention campaigns for top customers.",
+                    "**Optimize Seasonal Sales Strategy:** Identify months with lower transaction volumes and launch promotional campaigns during those periods. Adjust inventory and marketing budgets based on seasonal demand patterns.",
+                    "**Address Revenue Decline:** Investigate the causes behind the drop in revenue and active customers in 2015. Re-engage inactive customers through targeted campaigns. Monitor customer churn indicators to proactively retain customers.",
+                    "**Data-Driven Decision Making:** Implement this Power BI dashboard as a centralized reporting solution. Track KPIs such as Total Revenue, Customer Response Rate, Active Customers, Average Transaction Value, and Monthly Growth. Enable management to make real-time, insight-driven business decisions."
+                ],
+                "impact": [
+                    "Improved visibility into customer behavior and revenue performance.",
+                    "Identified high-value customer segments for targeted marketing.",
+                    "Highlighted revenue decline and customer drop-off trends for proactive action.",
+                    "Enabled faster decision-making through an interactive executive dashboard.",
+                    "Created a scalable reporting solution that can be extended for future retail analytics initiatives."
                 ]
             },
             {
-                "title": "E-Commerce Sales Analysis",
+                "title": "E-Commerce Sales & Customer Insights Dashboard",
                 "category": "Retail Analytics",
                 "image": "assets/images/projects/ecommerce/dashboard_1.png",
-                "tools": "Power BI | SQL | Excel",
+                "tools": "Power BI | Power Query | DAX | Data Visualization | E-commerce Analytics",
                 "isConfidential": false,
-                "githubUrl": "https://github.com/KeerthikRaja70/ecommerce-sales-analysis",
-                "problem": "Analyzed e-commerce data to uncover trends in sales, products, and customer behavior.",
+                "githubUrl": "https://github.com/KeerthikRaja70/KeerthikProjectHub",
+                "pbixUrl": "https://github.com/KeerthikRaja70/KeerthikProjectHub/raw/main/E_commerce_Sales_Analysis/E_Commerce%20Sales%20Analysis%20Dashboard.pbix",
+                "problem": "The e-commerce platform was accumulating massive amounts of data regarding product sales, pricing, discounts, and customer reviews, but lacked a cohesive view to understand profitability and customer satisfaction. The goal was to synthesize this e-commerce data into actionable insights to optimize discount strategies, improve product quality control, refine marketing efforts, and ultimately boost overall platform revenue.",
                 "questions": [
-                    "What problem was analyzed? Wrangling product review distributions and category revenue potential."
+                    "Which product categories and premium brands generate the most revenue?",
+                    "How do discount percentages correlate with total revenue generation?",
+                    "What are the primary drivers of customer satisfaction and negative feedback?",
+                    "Which coupon codes and delivery options are most effective in driving sales?",
+                    "What is the optimal price point and discount range for the majority of products?"
                 ],
                 "findings": [
-                    "Top premium brands generated the highest digital conversions.",
-                    "Dresses category generated disproportionately high revenue relative to SKU count."
+                    "**Revenue & Category Performance:** Total estimated revenue stands at an impressive 191.78M across 1,000 total products. \"Dresses\" (33.75M) and \"Jeans\" (18.34M) are by far the highest revenue-generating categories. Premium brands heavily drive revenue, with Levis (16.0M) and U.S. Polo Assn. (9.9M) leading the top charts.",
+                    "**Discount & Pricing Impact:** The platform relies heavily on discounts, with an average discount of 47.03%. Products with a 60-80% discount generate the lion's share of revenue (41.27%), followed by the 40-60% tier (25.25%), highlighting a highly price-sensitive customer base. Most products (nearly 400) are priced in the 2000-4999 range, making it the most common price bracket.",
+                    "**Customer Satisfaction & Feedback:** Overall customer satisfaction is strong, with the vast majority of products receiving 4-5 star ratings (615 products). Customer feedback is overwhelmingly centered around sizing, with \"fit\" (420 mentions) and \"just right\" (360 mentions) being the most common feedback keywords. A few specific brands, notably Clora Creation (11) and Saree Mall (9), are generating the highest number of negative reviews.",
+                    "**Delivery & Coupon Utilization:** \"MYNTRA400\", \"MYNTRA300\", and \"MYNTRA200\" are the most effectively utilized coupon codes, driving significant discount volume. Flexible delivery options are well-integrated, with Cash on Delivery (1K), Try & Buy (798), and Returns (783) being widely available across most top categories.",
+                    "**Premium & Expensive Product Contribution:** Specific expensive products from brands like Kisah, Under Armour, and Adidas disproportionately dominate the premium revenue contribution, indicating a healthy market for high-ticket items despite the high-discount environment."
                 ],
                 "recommendations": [
-                    "Adopt Dresses category priority for inventory allocation decisions."
+                    "**Optimize Discount Strategy:** Re-evaluate profit margins on the 60-90% discount tiers. Since 60-80% drives the most revenue, ensure these markdowns are yielding net positive profitability rather than just volume. Test slightly lower discount tiers (e.g., 40-50%) on highly desired categories like Dresses and Jeans to improve margins without sacrificing sales volume.",
+                    "**Improve Quality Control for Low-Performing Brands:** Initiate immediate quality and listing reviews for brands generating the most negative feedback (Clora Creation, Saree Mall). Since \"fit\" is the primary driver of feedback, ensure sizing charts and product descriptions are hyper-accurate to maintain high satisfaction and reduce return rates.",
+                    "**Maximize High-Value Categories and Brands:** Allocate premium homepage real estate and targeted marketing spend to top-performing brands (Levis, U.S. Polo Assn.) and categories (Dresses, Jeans). Promote expensive items (Kisah, Under Armour) through exclusive, low-discount campaigns to balance the revenue generated from mass-discounted goods.",
+                    "**Refine Promotional Campaigns:** Double down on successful coupon structures like \"MYNTRA400\" during shopping seasons. Phase out rarely used coupons to streamline the checkout process and focus marketing efforts on proven, high-conversion codes.",
+                    "**Data-Driven Decision Making:** Use this dashboard to actively monitor the correlation between discount depth and brand profitability. Track negative review accumulation in real-time to delist or flag underperforming products before they impact overall platform trust."
+                ],
+                "impact": [
+                    "Provided clear visibility into the relationship between heavy discounts and actual revenue generation.",
+                    "Identified specific brands causing customer dissatisfaction for immediate remediation.",
+                    "Highlighted the most effective coupon codes to streamline future marketing budgets.",
+                    "Uncovered the dominance of specific product categories, allowing for better inventory planning.",
+                    "Established a comprehensive view of how pricing, discounts, and customer feedback intersect to drive platform success."
                 ]
             },
             {
